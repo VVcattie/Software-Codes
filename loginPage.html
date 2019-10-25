@@ -1,25 +1,70 @@
 <!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="utf-8">
-        	<meta name="viewport" content="width=device-width, initial-scale=1">
-        	<!-- Latest compiled and minified CSS -->
-        	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-        	<!-- jQuery library -->
-        	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        	<!-- Popper JS -->
-        	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-        	<!-- Latest compiled JavaScript -->
-        	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        	<title>Login Page</title>
-    	</head>
-     	<body>
-     		<br>
-     		<div class="container">
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title>Login Page</title>
+</head>
 
+
+
+<body style="background-color:rgb(228, 210, 87);">
+	<div class="card bg-white">
+		<div class="card-header">
+			<img src="resources/TextBuddy_heading.png" alt="TextBuddy" width="232px" height="50px">
+		</div>
+	</div>
+</div>
+<br>
+<!-- page body -->
+<br>
+<div class="container">
+	<p class="text-center" style="font-size:160%;">
+		Hi! Welcome to TextBuddy!
+	</p>
+	<p class="text-center" style="font-size:160%;">
+		Please login or create an account to view textbook listings or class forums.
+	</p>
+</div>
+<br>
+<center>
+	<div class="container" >
+		<div class="card text-center" style="width: 20cm">
+			<div class= "form-group">
+				<br>
+				<h2>Please Enter Your Account Info</h2>
+				Username:<br>
+				<center><input type="text" class="form-control" name="username" placeholder="username" style="width:8cm"></center>
+				<small id="usernameHelp" class="form-text text-muted">Please enter your username</small>
+				<br>
+				Password:<br>
+				<center><input type="password" class="form-control" name="password" placeholder="password" style="width:8cm"></center>
+				<small id="passwordHelp" class="form-text text-muted">Please enter your password</small>
+				<br>
+				<a class="btn btn-outline-dark" href="#signinpage" role="button">Log in</a>
+				<br> <br>
 			</div>
-  		</body>
-	</html>
+		</div>
+		<center>
+			<div class= "form-group">
+				<center>
+					<small id="accountHelp" class="form-text text-muted">Don't have an existing account?</small>
+					<a href="#createAccount" class="btn btn-info" role="button">Create Account</a>
+				</center>
+			</div>
+		</div>
+
+	</body>
+</body>
+</html>

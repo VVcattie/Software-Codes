@@ -14,7 +14,7 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<title>Login Page</title>
+	<title>Login</title>
 </head>
 
 
@@ -22,7 +22,9 @@
 <body style="background-color:rgb(228, 210, 87);">
 	<div class="card bg-white">
 		<div class="card-header">
-			<img src="resources/TextBuddy_heading.png" alt="TextBuddy" width="232px" height="50px">
+			<a class="btn btn-outline-light" href="#loginPage" role="button">
+				<img src="resources/TextBuddy_heading.png" alt="TextBuddy" width="232px" height="50px">
+			</a>
 		</div>
 	</div>
 </div>
@@ -45,11 +47,11 @@
 				<br>
 				<h2>Please Enter Your Account Info</h2>
 				Username:<br>
-				<center><input type="text" class="form-control" name="username" placeholder="username" style="width:8cm"></center>
+				<center><input type="text" class="form-control" name="username" placeholder="username" style="width:9cm" readonly></center>
 				<small id="usernameHelp" class="form-text text-muted">Please enter your username</small>
 				<br>
 				Password:<br>
-				<center><input type="password" class="form-control" name="password" placeholder="password" style="width:8cm"></center>
+				<center><input type="password" class="form-control" name="password" placeholder="password" style="width:9cm" readonly></center>
 				<small id="passwordHelp" class="form-text text-muted">Please enter your password</small>
 				<br>
 				<a class="btn btn-outline-dark" href="#signinpage" role="button">Log in</a>
@@ -66,5 +68,4 @@
 		</div>
 
 	</body>
-</body>
-</html>
+	</html>

@@ -22,7 +22,7 @@ function loginButton(){
 
 function loadValidationRequirements() {
 	var passwordInput = document.getElementById("passwordInput");
-  var confirmPasswordInput = document.getElementById("confirmPasswordInput");
+	var confirmPasswordInput = document.getElementById("confirmPasswordInput");
 	var emailInput = document.getElementById("emailInput");
 	var emailMessage = document.getElementById("emailMessage");
 	var letter = document.getElementById("letter");
@@ -33,23 +33,26 @@ function loadValidationRequirements() {
 
   //var match = document.getElementById("match");
 
-	emailInput.onkeyup = function() {
-		var isEmailProper = false;
+  emailInput.onkeyup = function() {
+  	var isEmailProper = false;
 
-		var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-		if(emailInput.value.match(emailCheck)) {
-				emailMessage.innerHTML = "Valid Email";
-	  } else {
-				emailMessage.innerHTML = "Invalid Email";
-				isEmailProper = false;
-	  }
-	}
+  	if(emailInput.value.match(emailCheck)) {
+  		isEmailProper = true;
+  		emailMessage.innerHTML = "Valid Email";
+  		emailMessage.style = "color:green";
+  	} else {
+  		isEmailProper = false;
+  		emailMessage.innerHTML = "Invalid Email";
+  		emailMessage.style = "color:red";
+  	}
+  }
 
-	passwordInput.onkeyup = function() {
-		console.log('check');
+  passwordInput.onkeyup = function() {
+  	console.log('check');
 
-		var isPasswordProper = true;
+  	var isPasswordProper = true;
 
 		var lowerCaseLetters = /[a-z]/; // : Fill in the regular experssion for lowerCaseLetters
 	  var upperCaseLetters = /[A-Z]/; // : Fill in the regular experssion for upperCaseLetters
@@ -58,61 +61,61 @@ function loadValidationRequirements() {
 
 		// Validate if there is a lowercase letter
 		if(passwordInput.value.match(lowerCaseLetters)) {
-	      letter.classList.remove("invalid");
-	      letter.classList.add("valid");
-	  } else {
-	      letter.classList.remove("valid");
-	      letter.classList.add("invalid");
-				isPasswordProper = false;
-	  }
+			letter.classList.remove("invalid");
+			letter.classList.add("valid");
+		} else {
+			letter.classList.remove("valid");
+			letter.classList.add("invalid");
+			isPasswordProper = false;
+		}
 
 		// Validate if there is a uppercase letter
 		if(passwordInput.value.match(upperCaseLetters)) {
-				 capital.classList.remove("invalid");
-				 capital.classList.add("valid");
-		 } else {
-				 capital.classList.remove("valid");
-				 capital.classList.add("invalid");
-				 isPasswordProper = false;
-		 }
+			capital.classList.remove("invalid");
+			capital.classList.add("valid");
+		} else {
+			capital.classList.remove("valid");
+			capital.classList.add("invalid");
+			isPasswordProper = false;
+		}
 
 		 // Validate there is a number
 		 if(passwordInput.value.match(numbers)) {
-				 number.classList.remove("invalid");
-				 number.classList.add("valid");
+		 	number.classList.remove("invalid");
+		 	number.classList.add("valid");
 		 } else {
-				 number.classList.remove("valid");
-				 number.classList.add("invalid");
-				 isPasswordProper = false;
+		 	number.classList.remove("valid");
+		 	number.classList.add("invalid");
+		 	isPasswordProper = false;
 		 }
 
 		 // Validate the length of the password
 		 if(passwordInput.value.length >= minLength) {
-				 length.classList.remove("invalid");
-				 length.classList.add("valid");
+		 	length.classList.remove("invalid");
+		 	length.classList.add("valid");
 		 } else {
-				 length.classList.remove("valid");
-				 length.classList.add("invalid");
-				 isPasswordProper = false;
+		 	length.classList.remove("valid");
+		 	length.classList.add("invalid");
+		 	isPasswordProper = false;
 		 }
-	 }
+		}
 
-	 confirmPasswordInput.onkeyup = function(){
-		 match.classList.remove("invalid");
-		 match.classList.add("valid");
+		confirmPasswordInput.onkeyup = function(){
+			match.classList.remove("invalid");
+			match.classList.add("valid");
 
-		 var doesPasswordMatch = false;
-		 if (passwordInput.value === confirmPasswordInput.value) {
-		 		match.classList.remove("invalid");
-  			match.classList.add("valid");
+			var doesPasswordMatch = false;
+			if (passwordInput.value === confirmPasswordInput.value) {
+				match.classList.remove("invalid");
+				match.classList.add("valid");
 				doesPasswordMatch = true;
  			//alert("The password you enter doesn't match! Please try again");
  			//return false;
-		 }
- 		 else {
- 			  match.classList.remove("valid");
- 			  match.classList.add("invalid");
- 				doesPasswordMatch = false;
  		}
-	 }
-}
+ 		else {
+ 			match.classList.remove("valid");
+ 			match.classList.add("invalid");
+ 			doesPasswordMatch = false;
+ 		}
+ 	}
+ }

@@ -5,7 +5,7 @@
 
 .valid:before {
   position: relative;
-  left: -35px;
+  left: -15px;
   content: '\2713';
 }
 
@@ -15,6 +15,6 @@
 
 .invalid:before {
   position: relative;
-  left: -35px;
+  left: -15px;
   content: '\00D7';
 }

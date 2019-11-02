@@ -1,0 +1,54 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  // Latest compiled and minified CSS
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  // jQuery library
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+  // Popper JS
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+  // Latest compiled JavaScript
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  title Login
+.card.bg-white
+  .card-header
+    a.btn.btn-outline-light(href='loginPage.html' role='button')
+      img(src='../resources/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
+br
+// page body
+br
+.container
+  body(style="background-color: #e4d257")
+  p.text-center(style='font-size:160%;')
+    | Hi! Welcome to TextBuddy!
+  p.text-center(style='font-size:160%;')
+    | Please login or create an account to view textbook listings or class forums.
+br
+center
+  .container
+    .card.text-center(style='width: 20cm')
+      .form-group(action='/loginPage/checkUserLogin')
+        br
+        h2 Please Enter Your Account Info
+        | &#x9;&#x9;&#x9;&#x9;&#x9;Username:
+        br
+        center
+          input.form-control(type='text' name='username' placeholder='username' style='width:9cm' required='')
+        small#usernameHelp.form-text.text-muted Please enter your username
+        br
+        | &#x9;&#x9;&#x9;&#x9;&#x9;Password:
+        br
+        center
+          input.form-control(type='password' name='password' placeholder='password' style='width:9cm' required='')
+        small#passwordHelp.form-text.text-muted Please enter your password
+        br
+        a.btn.btn-outline-dark(role='button' onclick='submit') Log in
+        br
+        br
+    center
+      .form-group
+        center
+          small#accountHelp.form-text.text-muted Don&apos;t have an existing account?
+          a.btn.btn-info(href='signUp.html' role='button') Create Account
+  script(src='../resources/js/login_script.js')

@@ -1,9 +1,16 @@
 {
-    "name": "football-site",
-    "main": "server.js",
-    "dependencies": {
-        "express": "^4.6.1",
-        "pg-promise": "^9.3.3",
-        "pug": "^2.0.4"
-    }
+  "name": "football-site",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg-promise": "^9.3.3",
+    "pug": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

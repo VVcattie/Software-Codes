@@ -28,19 +28,19 @@ br
 center
   .container
     .card.text-center(style='width: 20cm')
-      form(action='/loginPage/checkUserLogin' method ="get")
+      form(action="/loginPage/checkUserLogin" method="get")
         br
         h2 Please Enter Your Account Info
         | &#x9;&#x9;&#x9;&#x9;&#x9;Username:
         br
         center
-          input.form-control(type='text' name='username' id='username' placeholder='username' style='width:9cm' required='')
+          input.form-control(type='text' id="username" name='username' placeholder='username' style='width:9cm' required='')
         small#usernameHelp.form-text.text-muted Please enter your username
         br
         | &#x9;&#x9;&#x9;&#x9;&#x9;Password:
         br
         center
-          input.form-control(type='password' name='password' id='password' placeholder='password' style='width:9cm' required='')
+          input.form-control(type='password' id="password" name='password' placeholder='password' style='width:9cm' required='')
         small#passwordHelp.form-text.text-muted Please enter your password
         br
         button.btn.btn-primary(type="submit") Log in

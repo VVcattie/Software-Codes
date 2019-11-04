@@ -28,9 +28,9 @@ const pgp = require('pg-promise')();
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textbuddy_database',
+	database: 'textBuddy_database',
 	user: 'postgres',
-	password: 'password'
+	password: 'micronp1100'
 };
 
 let db = pgp(dbConfig);
@@ -46,24 +46,22 @@ app.get('/loginPage', function(req, res) {
 		my_title:"Login Page"
 	});
 });
+
 app.get('/loginPage/checkUserLogin', function(req, res){
-	db.any('SELECT*FROM users;')
-		.then(function(rows){
-			for (var i=0;i < rows.length;i++){
-		if (rows[i].user_username == req.query.username && rows[i].user_password == req.query.password){
-			console.log("login success");
-		}
-		else{
-			console.log("failed")
-		}
-	}
-		})
-		.catch(function(err){
-			console.log(err);
-		});
-})
+  // var query = 'select * from users wh;
+	// db.any(query)
+  //       .then(function (rows) {
+  //           res.render('pages/home',{
+	// 			my_title: "Home Page",
+	// 			data: rows,
+	// 			color: '',
+	// 			color_msg: ''
+	// 		})
+  //
+  console.log(req.query.username);
+  console.log(req.query.password);
 
-
+});
 
 app.listen(3000);
 console.log('website up and moving');

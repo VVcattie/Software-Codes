@@ -1,0 +1,76 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  // Latest compiled and minified CSS
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  // jQuery library
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+  // Popper JS
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+  // Latest compiled JavaScript
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  script(src='resources/js/login_script.js')
+  title Sign Up
+.card.bg-white
+  .card-header
+    a.btn.btn-outline-light(href='loginPage.pug' role='button')
+      img(src='resources/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
+br
+// page body
+br
+.container
+  body(style="background-color: #e4d257")
+  p.text-center(style='font-size:170%;')
+    | Hi! Welcome to TextBuddy!
+  p.text-center(style='font-size:170%;')
+    | Please login or create an account to view textbook listings or class forums.
+br
+center
+  .card.text-center(style='width: 20cm')
+    br
+    center
+      h3 Create a New TextBuddy Account
+    br
+    form(action='/signUp/createAccount' method ="post")
+      .container-fluid
+        .form-row
+          .form-group.col-md-6
+            label(for='firstNameInput') First Name:
+            input.form-control(name="firstNameInput" type='text' placeholder='First Name' style='width:9cm' required='')
+          .form-group.col-md-6
+            label(for='LastNameInput') Last Name:
+            input.form-control(name="LastNameInput" type='text' placeholder='Last Name' style='width:9cm' required='')
+      .container-fluid
+        .form-row
+          .form-group.col-md-6
+            label(for='usernameInput') Username:
+            input.form-control(name="usernameInput" type='text' placeholder='Username' style='width:9cm' required='')
+          .form-group.col-md-6
+            label(for='passwordInput') Password:
+            input.form-control(name="passwordInput" type='password' placeholder='Password' style='width:9cm' required='')
+      .container-fluid
+        .form-row
+          .form-group.col-md-6
+            label(for='emailInput') Email:
+            input.form-control(name="emailInput" type='text' placeholder='Email' style='width:9cm' required='')
+          .form-group.col-md-6
+            label(for='confirmPasswordInput') Confirm Password:
+            input.form-control(name="confirmPasswordInput" type='password' placeholder='Confirm Password' style='width:9cm' required='')
+      br
+      .container-fluid
+        .form-row
+          .form-group.col-md-6
+            button.btn.btn-outline-dark(href='homePage.pug' role='button' type='submit') Create Account
+          .form-group.col-md-6
+            .form-check.form-check-inline
+              input#cuStudent.form-check-input(type='radio' name='studentStatus' value='CU Student' required='')
+              label.form-check-label(for='cuStudent') CU Student
+            .form-check.form-check-inline
+              input#noncuStudent.form-check-input(type='radio' name='studentStatus' value='Non-CU Student' required='')
+              label.form-check-label(for='noncuStudent') Non-CU Student
+      br
+.form-group
+  center
+    small#accountHelp.form-text.text-muted Already have an account?
+    a.btn.btn-info(href='loginPage.pug' role='button') Login

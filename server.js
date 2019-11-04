@@ -28,9 +28,9 @@ const pgp = require('pg-promise')();
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textBuddy_database',
+	database: 'textbuddy_database',
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'password'
 };
 
 let db = pgp(dbConfig);
@@ -46,22 +46,70 @@ app.get('/loginPage', function(req, res) {
 		my_title:"Login Page"
 	});
 });
-
+app.get('/homePage', function(req, res){
+  res.render('loginPage',{
+    my_title:"Home Page"
+  });
+});
+app.get('/signUp', function(req, res){
+  res.render('signUp',{
+    my_title:"Sign Up"
+  });
+});
 app.get('/loginPage/checkUserLogin', function(req, res){
-  // var query = 'select * from users wh;
-	// db.any(query)
-  //       .then(function (rows) {
-  //           res.render('pages/home',{
-	// 			my_title: "Home Page",
-	// 			data: rows,
-	// 			color: '',
-	// 			color_msg: ''
-	// 		})
-  //
-  console.log(req.query.username);
-  console.log(req.query.password);
+	db.any('SELECT*FROM users;')
+		.then(function(rows){
+			for (var i=0;i < rows.length;i++){
+		if (rows[i].user_username == req.query.username && rows[i].user_password == req.query.password){
+			console.log("login success");
+		}
+		else{
+			console.log("failed")
+		}
+	}
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+});
+app.post('/signUp/createAccount', function(req,res){
+  var firstNameInput = req.body.firstNameInput;
+	var lastNameInput = req.body.LastNameInput;
+	var usernameInput = req.body.usernameInput;
+  var passwordInput = req.body.passwordInput;
+  var emailInput = req.body.emailInput;
+
+	var insert_statement = "INSERT INTO users(user_id, user_password, user_email, user_first_name, user_last_name) VALUES('" + 1 + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
+
+	var user_select = 'select * from users;';
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(insert_statement),
+            task.any(user_select)
+        ]);
+    })
+    // .then(info => {
+    // 	res.render('pages/home',{
+		// 		my_title: "Home Page",
+		// 		data: info[1],
+		// 		color: color_hex,
+		// 		color_msg: color_message
+		// 	})
+    // })
+    .catch(error => {
+        // display error message in case an error
+            console.log('error'); //if this doesn't work for you replace with console.log
+            res.render('signUp', {
+                title: 'Sign Up',
+                data: '',
+                color: '',
+                color_msg: ''
+            })
+    });
 
 });
+
+
 
 app.listen(3000);
 console.log('website up and moving');

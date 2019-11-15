@@ -1,49 +1,51 @@
 doctype html
-head
-  meta(charset='utf-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1')
-  // Latest compiled and minified CSS
-  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
-  // jQuery library
-  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
-  // Popper JS
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
-  // Latest compiled JavaScript
-  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
-  title Home Page
-// nav bar
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  a.navbar-brand(href='homePage.html')
-    img(src='../resources/img/TextBuddy_heading.png' alt='TextBuddy' width='232' height='50')
-  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
-    span.navbar-toggler-icon
-  #navbarText.collapse.navbar-collapse
-    ul.navbar-nav.mr-auto
-      li.nav-item.active
-        a.nav-link(href='homePage.html') Home
-      li.nav-item
-        a.nav-link(href='listings.html') Listings
-      li.nav-item
-        a.nav-link(href='forum.html')
-          | Forum
-          span.sr-only (current)
-    .form-inline.my-2.my-lg-0
-      button.btn.btn-outline-dark.my-2.my-sm-0(role='button' onclick="window.location.href='loginPage.html'") Login
-// body information
-br
-.container
-  p.text-center(style='font-size:170%;')
-    | Hi! Welcome to TextBuddy!
-  ul
-    li(style='font-size:130%;')
-      | TextBuddy is a website for College Students who can&rsquo;t afford new textbooks, need support in class, and want a community where they can discuss homework and receive help.
-    li(style='font-size:130%;')
-      | This platform provides you with connections to users with similar needs in a place that allows you to receive and give help through class forums.
-      br
-    li(style='font-size:130%;')
-      | Unlike Craigslist, our product is geared specifically towards students to meet their similar financial and academic needs.
-    li(style='font-size:130%;')
-      | If you cannot find what you are looking for, feel free to head over to the official website for the 
-      a(href='https://www.cubookstore.com')  CU Bookstore
-      |  to check out more products there.
-br
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    // Latest compiled and minified CSS
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+    // jQuery library
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    // Popper JS
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+    // Latest compiled JavaScript
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+    title Home Page
+  body(style='background-color:rgb(228, 210, 87);')
+    // nav bar
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='homePage.html')
+        img(src='../resources/img/TextBuddy_heading.png', alt='TextBuddy', width='232', height='50')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarText', aria-controls='navbarText', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarText.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='homePage.html') Home
+          li.nav-item
+            a.nav-link(href='listings.html') Listings
+          li.nav-item
+            a.nav-link(href='forum.html')
+              | Forum
+              span.sr-only (current)
+        .form-inline.my-2.my-lg-0
+          button.btn.btn-outline-dark.my-2.my-sm-0(role='button', onclick="window.location.href='loginPage.html'") Login
+    // body information
+    br
+    .container
+      p.text-center(style='font-size:170%;')
+        | Hi! Welcome to TextBuddy!
+      ul
+        li(style='font-size:130%;')
+          | TextBuddy is a website for College Students who can’t afford new textbooks, need support in class, and want a community where they can discuss homework and receive help.
+        li(style='font-size:130%;')
+          | This platform provides you with connections to users with similar needs in a place that allows you to receive and give help through class forums.
+          br
+        li(style='font-size:130%;')
+          | Unlike Craigslist, our product is geared specifically towards students to meet their similar financial and academic needs.
+        li(style='font-size:130%;')
+          | If you cannot find what you are looking for, feel free to head over to the official website for the 
+          a(href='https://www.cubookstore.com')  CU Bookstore
+          |  to check out more products there.
+    br

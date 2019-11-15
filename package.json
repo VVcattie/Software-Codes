@@ -12,5 +12,13 @@
   "version": "1.0.0",
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VVcattie/Software-Codes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VVcattie/Software-Codes/issues"
+  },
+  "homepage": "https://github.com/VVcattie/Software-Codes#readme",
   "description": ""
 }

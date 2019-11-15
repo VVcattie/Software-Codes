@@ -13,37 +13,36 @@ head
   title Login
 .card.bg-white
   .card-header
-    a.btn.btn-outline-light(href='loginPage.html' role='button')
-      img(src='../resources/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
+    a.btn.btn-outline-light(href='homePage.html' role='button')
+      img(src='../resources/img/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
 br
 // page body
 br
 .container
-  body(style="background-color: #e4d257")
-  p.text-center(style='font-size:160%;')
+  p.text-center(style='font-size:170%;')
     | Hi! Welcome to TextBuddy!
-  p.text-center(style='font-size:160%;')
+  p.text-center(style='font-size:170%;')
     | Please login or create an account to view textbook listings or class forums.
 br
 center
   .container
     .card.text-center(style='width: 20cm')
-      form(action="/loginPage/checkUserLogin" method="get")
+      .form-group
         br
-        h2 Please Enter Your Account Info
+        h3 Please Enter Your Account Info Below
         | &#x9;&#x9;&#x9;&#x9;&#x9;Username:
         br
         center
-          input.form-control(type='text' id="username" name='username' placeholder='username' style='width:9cm' required='')
+          input.form-control(type='text' name='username' placeholder='username' style='width:9cm' required='')
         small#usernameHelp.form-text.text-muted Please enter your username
         br
         | &#x9;&#x9;&#x9;&#x9;&#x9;Password:
         br
         center
-          input.form-control(type='password' id="password" name='password' placeholder='password' style='width:9cm' required='')
+          input.form-control(type='password' name='password' placeholder='password' style='width:9cm' required='')
         small#passwordHelp.form-text.text-muted Please enter your password
         br
-        button.btn.btn-primary(type="submit") Log in
+        a.btn.btn-outline-dark(href='HomePage.html' role='button' onclick='loginButton()') Login
         br
         br
     center

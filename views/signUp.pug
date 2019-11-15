@@ -10,17 +10,17 @@ head
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
   // Latest compiled JavaScript
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
-  script(src='resources/js/login_script.js')
+  script(src='../resources/js/login_script.js')
+  link(rel='stylesheet' type='text/css' href='../resources/css/signUp.css')
   title Sign Up
 .card.bg-white
   .card-header
-    a.btn.btn-outline-light(href='loginPage.pug' role='button')
-      img(src='resources/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
+    a.btn.btn-outline-light(href='homePage.html' role='button')
+      img(src='../resources/img/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
 br
 // page body
 br
 .container
-  body(style="background-color: #e4d257")
   p.text-center(style='font-size:170%;')
     | Hi! Welcome to TextBuddy!
   p.text-center(style='font-size:170%;')
@@ -32,36 +32,54 @@ center
     center
       h3 Create a New TextBuddy Account
     br
-    form(action='/signUp/createAccount' method ="post")
+    form
       .container-fluid
         .form-row
           .form-group.col-md-6
             label(for='firstNameInput') First Name:
-            input.form-control(name="firstNameInput" type='text' placeholder='First Name' style='width:9cm' required='')
+            input#firstNameInput.form-control(type='text' placeholder='First Name' style='width:9cm' required='')
           .form-group.col-md-6
             label(for='LastNameInput') Last Name:
-            input.form-control(name="LastNameInput" type='text' placeholder='Last Name' style='width:9cm' required='')
+            input#LastNameInput.form-control(type='text' placeholder='Last Name' style='width:9cm' required='')
       .container-fluid
         .form-row
           .form-group.col-md-6
             label(for='usernameInput') Username:
-            input.form-control(name="usernameInput" type='text' placeholder='Username' style='width:9cm' required='')
+            input#usernameInput.form-control(type='text' placeholder='Username' style='width:9cm' required='')
           .form-group.col-md-6
             label(for='passwordInput') Password:
-            input.form-control(name="passwordInput" type='password' placeholder='Password' style='width:9cm' required='')
+            input#passwordInput.form-control(type='password' placeholder='Password' style='width:9cm' required='')
       .container-fluid
         .form-row
           .form-group.col-md-6
             label(for='emailInput') Email:
-            input.form-control(name="emailInput" type='text' placeholder='Email' style='width:9cm' required='')
+            input#emailInput.form-control(type='text' placeholder='Email' style='width:9cm' required='')
+            small#emailMessage Enter an email
           .form-group.col-md-6
             label(for='confirmPasswordInput') Confirm Password:
-            input.form-control(name="confirmPasswordInput" type='password' placeholder='Confirm Password' style='width:9cm' required='')
+            input#confirmPasswordInput.form-control(type='password' placeholder='Confirm Password' style='width:9cm' required='')
+      #message(style='display:block')
+        h5 Password must contain the following:
+        p#letter.invalid
+          | A 
+          b lowercase
+          |  letter
+        p#capital.invalid
+          | A 
+          b capital (uppercase)
+          |  letter
+        p#number.invalid
+          | A 
+          b number
+        p#length.invalid
+          | Minimum 
+          b 8 characters
+        p#match.invalid Password and Confirm Password Match
       br
       .container-fluid
         .form-row
           .form-group.col-md-6
-            button.btn.btn-outline-dark(href='homePage.pug' role='button' type='submit') Create Account
+            button.btn.btn-outline-dark(href='home.html' role='button' type='submit' onclick='return validatePassword()') Create Account
           .form-group.col-md-6
             .form-check.form-check-inline
               input#cuStudent.form-check-input(type='radio' name='studentStatus' value='CU Student' required='')
@@ -73,4 +91,4 @@ center
 .form-group
   center
     small#accountHelp.form-text.text-muted Already have an account?
-    a.btn.btn-info(href='loginPage.pug' role='button') Login
+    a.btn.btn-info(href='loginPage.html' role='button') Login

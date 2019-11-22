@@ -34,15 +34,15 @@ html(lang='en')
         center
           h3 Create a New TextBuddy Account
         br
-        form(action='/signUp/createAccount', method='post', )='')
+        form(action='/signUp/createAccount', method='post')
           .container-fluid
             .form-row
               .form-group.col-md-6
                 label(for='firstNameInput') First Name:
-                input#firstNameInput.form-control(type='text', placeholder='First Name', style='width:9cm', required='')
+                input.form-control(name='firstNameInput' type='text', placeholder='First Name', style='width:9cm', required='')
               .form-group.col-md-6
                 label(for='LastNameInput') Last Name:
-                input#LastNameInput.form-control(type='text', placeholder='Last Name', style='width:9cm', required='')
+                input.form-control(name='LastNameInput' type='text', placeholder='Last Name', style='width:9cm', required='')
           .container-fluid
             .form-row
               .form-group.col-md-6
@@ -63,25 +63,25 @@ html(lang='en')
           #message(style='display:block')
             h5 Password must contain the following:
             p#letter.invalid
-              | A 
+              | A
               b lowercase
               |  letter
             p#capital.invalid
-              | A 
+              | A
               b capital (uppercase)
               |  letter
             p#number.invalid
-              | A 
+              | A
               b number
             p#length.invalid
-              | Minimum 
+              | Minimum
               b 8 characters
             p#match.invalid Password and Confirm Password Match
           br
           .container-fluid
             .form-row
               .form-group.col-md-6
-                button.btn.btn-outline-dark(href='home.html', role='button', type='submit', onclick='return validatePassword()') Create Account
+                button.btn.btn-outline-dark(role='button', type='submit', onclick='validatePassword()') Create Account
               .form-group.col-md-6
                 .form-check.form-check-inline
                   input#cuStudent.form-check-input(type='radio', name='studentStatus', value='CU Student', required='')

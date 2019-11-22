@@ -5,13 +5,18 @@ function loginButton(){
 }
 
 function validatePassword() {
-	var password = document.getElementById("passwordInput").value;
-	var confirmPassword = document.getElementById("confirmPasswordInput").value;
-	if (password != confirmPassword) {
-		alert("The password you enter doesn't match! Please try again");
-		return false;
-	}
-	else return true;
+	// var password = document.getElementById("passwordInput").value;
+	// var confirmPassword = document.getElementById("confirmPasswordInput").value;
+	// if (password != confirmPassword) {
+	// 	alert("The password you enter doesn't match! Please try again");
+	// 	return false;
+	// }
+	// else {
+	// 	aler("good password");
+	// 	return true;
+	// }
+	console.log(document.getElementById("firstNameInput"));
+	console.log("hi");
 }
 
 //the following functions check to see if an email is valid, the first performs the check, the second will display a message

@@ -57,62 +57,53 @@ app.get('/signUp', function(req, res){
   });
 });
 app.get('/loginPage/checkUserLogin', function(req, res){
+  bool validUser = false;
 	db.any('SELECT*FROM users;')
 		.then(function(rows){
+      console.log("Username entered" + req.query.username);
+      console.log("Password entered" + req.query.password);
 			for (var i=0;i < rows.length;i++){
 		if (rows[i].user_username == req.query.username && rows[i].user_password == req.query.password){
-			console.log("login success");
+			validUser = true;
 		}
-		else{
-			console.log("failed")
-		}
-	}
+	 }
+   if (validUser){
+     console.log("login success");
+   }
+   else{
+     console.log("login failure");
+   }
 		})
 		.catch(function(err){
 			console.log(err);
 		});
 });
-
-app.post('/signUp/createAccount', function(req,res) {
+app.post('/signUp/createAccount', function(req,res){
   var firstNameInput = req.body.firstNameInput;
-  var lastNameInput = req.body.LastNameInput;
-  var usernameInput = req.body.usernameInput;
+	var lastNameInput = req.body.LastNameInput;
+	var usernameInput = req.body.usernameInput;
   var passwordInput = req.body.passwordInput;
   var emailInput = req.body.emailInput;
-  // var createUser = {
-  // 	user_username: req.body.usernameInput,
-  // 	user_password: req.body.passwordInput,
-  // 	user_email: req.body.emailInput,
-  // 	user_first_name: req.body.firstNameInput,
-  // 	user_last_name: req.body.lastNameInput
-  // }
-	let insert_statement = "INSERT INTO users(user_username, user_password, user_email, user_first_name, user_last_name) VALUES('" + usernameInput + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
-	db.any(insert_statement)
-		.then(function(){
-			console.log('success added!')
-		})
-		.catch(function(err){
-			console.log(err);
-		});
 
-    // .then(info => {
-    // 	res.render('pages/home',{
-		// 		my_title: "Home Page",
-		// 		data: info[1],
-		// 		color: color_hex,
-		// 		color_msg: color_message
-		// 	})
-    // })
-    // .catch(error => {
-    //     // display error message in case an error
-    //         console.log('error'); //if this doesn't work for you replace with console.log
-    //         res.render('signUp', {
-    //             title: 'Sign Up',
-    //             data: '',
-    //             color: '',
-    //             color_msg: ''
-    //         })
-    // });
+	var insert_statement = "INSERT INTO users(user_id, user_password, user_email, user_first_name, user_last_name) VALUES('" + 1 + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
+
+	var user_select = 'select * from users;';
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(insert_statement),
+            task.any(user_select)
+        ]);
+    })
+    .catch(error => {
+        // display error message in case an error
+            console.log('error'); //if this doesn't work for you replace with console.log
+            res.render('signUp', {
+                title: 'Sign Up',
+                data: '',
+                color: '',
+                color_msg: ''
+            })
+    });
 
 });
 

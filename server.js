@@ -92,7 +92,7 @@ app.post('/signUp/createAccount', function(req,res){
 	var lastNameInput = req.body.LastNameInput;
 	var usernameInput = req.body.usernameInput;
   var passwordInput = req.body.passwordInput;
-  var emailInput = req.body.emailInput;
+  var emailInput = req.body.emailInput; 
 
 	var insert_statement = "INSERT INTO users(user_id, user_password, user_email, user_first_name, user_last_name) VALUES('" + 1 + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
 

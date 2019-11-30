@@ -108,9 +108,6 @@ app.post('/signUp/createAccount', function(req,res){
             console.log('error'); //if this doesn't work for you replace with console.log
             res.render('signUp', {
                 title: 'Sign Up',
-                data: '',
-                color: '',
-                color_msg: ''
             })
     });
 
@@ -120,10 +117,10 @@ app.get('/listings', function(req, res){
     //check to see if there is a selection, then do the db calls
     var category = req.query.myList.value;
     if (category){
-      var callListings = "select * from listings;";
+      var callListings = "select * from listings where listing_category = "+ category + ";";
     }
     else{
-      var callListings = "select * from listings where listing_category = "+ category + ";";
+      var callListings = "select * from listings;";
     }
     var listingUser = "select user_username from users right join listings on listing_user_id = user_id;";
     db.task('get-everything', task => {
@@ -142,7 +139,7 @@ app.get('/listings', function(req, res){
           price: info[0].listing_price,
           condition: info[0].listing_condition,
           author: info[0].listing_author,
-          listingUser: info[1]
+          listingUsername: info[1]
         })
       })
 		.catch(function(err){
@@ -151,7 +148,33 @@ app.get('/listings', function(req, res){
 });
 //function to add a new textbook or notebook listing to the database
 app.post('/listings/postListing', function(req,res){
+    var title = req.body.title;
+    var category = req.body.subject;
+    var description = req.body.description;
+    var bookType = req.body.type;
+    var price = req.body.price;
+    var username = req.body.sellerName;
+    var email = req.body.sellerEmail;
+    var getUserID = "select user_id from users where user_email = " + email + ";";
+    var userId = "";
 
+    db.any(getUserID)
+  		.then(function(rows){
+        userID = rows;
+      });
+    var insertStatement = "declare @id uniqueidentifier set @id = NEWID() INSERT INTO listings(listing_id, listing_title, listing_user_id, listing_description, listing_category, listing_booktype, listing_price) VALUES(@id, "+ title + "," + userID + ", " + description + "," + category + "," + bookType + ","+price+") ON CONFLICT DO NOTHING;";
+    db.task('get-everything', task => {
+          return task.batch([
+              task.any(insertStatement)
+          ]);
+      })
+      .catch(error => {
+          // display error message in case an error
+              console.log('error'); //if this doesn't work for you replace with console.log
+              res.render('/listings', {
+                  title: 'Listings',
+              })
+      });
 });
 
 

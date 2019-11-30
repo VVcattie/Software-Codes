@@ -207,14 +207,14 @@ input[type=submit]:hover {
 		                      <label>
 		                        <input type="radio" name="options" id="option2" autocomplete="off">Textbook
 		                      </label>
-				              <select class="btn btn-sm btn-light" id = "myList" style="width: auto">
+				              <select class="btn btn-sm btn-light" id = "myList" style="width: auto" action="/listings">
 				                <option value="Select_subject">- Select Subject -</option>
-								<option value="Math">Math</option>
-							    <option value="Physics">Physics</option>
-							    <option value="Computer_science">Computer Science</option>
-							    <option value="Chemistry">Chemistry</option>
-							    <option value="Biology">Biology</option>
-								<option value="English">English</option>
+												<option value="Math">Math</option>
+							    			<option value="Physics">Physics</option>
+										    <option value="Computer_science">Computer Science</option>
+										    <option value="Chemistry">Chemistry</option>
+										    <option value="Biology">Biology</option>
+												<option value="English">English</option>
 				              </select>
 				              &nbsp;
 		                      <button class="btn btn-sm btn-info" type="submit" >Search</button>
@@ -236,7 +236,7 @@ input[type=submit]:hover {
   							</div>
       						<div class="modal-body">
       							<h5 class="text-center">Enter information about the notebook or textbook you want to put up for listing.</h5>
-										<form class="form-horizontal" action="/action_page.php">
+										<form class="form-horizontal" action="/listings/postListing">
 											<div class="row">
 										    	<div class="col-25">
 										      		<label for="title">Title</label>
@@ -282,7 +282,7 @@ input[type=submit]:hover {
 							                        		<input type="radio" name="options" id="option2" autocomplete="off">Textbook
 							                      		</label>
 						                      		</div>
-						                      	</div>	
+						                      	</div>
 				                      		</div>
 								       		<div class="row">
 									    		<div class="col-25">

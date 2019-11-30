@@ -1,0 +1,265 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  // Latest compiled and minified CSS
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  // jQuery library
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+  // Popper JS
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+  // Latest compiled JavaScript
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  title Listings Page
+style.
+  * {
+  box-sizing: border-box;
+  }
+  /* Create two unequal columns that floats next to each other */
+  .column {
+  float: left;
+  padding: 20px;
+  height: 100%; /* Should be removed. Only for demonstration */
+  }
+  .leftColumn {
+  width: 30%;
+  //border-right: 1px solid #000;
+  }
+  .rightColumn {
+  width: 70%;
+  border-left: 1px solid #000;
+  height: 100%;
+  overflow: auto;
+  }
+  /* Clear floats after the columns */
+  .row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+  .vertical-menu {
+  width: 200px; /* Set a width if you like */
+  }
+  .vertical-menu a {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+  }
+  .vertical-menu a:hover {
+  background-color: #ccc; /* Dark grey background on mouse-over */
+  }
+  .vertical-menu a.active {
+  background-color: #424240; /* Add a green color to the "active/current" link */
+  color: white;
+  }
+  .card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 4px 4px;
+  }
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  /* Add some padding inside the card container */
+  .container {
+  padding: 2px 16px;
+  }
+  @media screen and (max-width: 600px) {
+  .column {
+  width: 100%;
+  }
+  }
+  .buttonList{
+  color: black;
+  }
+  input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  }
+  label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+  }
+  input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  }
+  input[type=submit]:hover {
+  background-color: #45a049;
+  }
+  .container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  }
+  .col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+  }
+  .col-75 {
+  float: left;
+  width: 70%;
+  margin-top: 6px;
+  }
+  /* Clear floats after the columns */
+  .row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+  width: 100%;
+  margin-top: 0;
+  }
+  }
+// nav bar
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  a.navbar-brand(href='homePage.html')
+    img(src='../resources/img/TextBuddy_heading.png' alt='TextBuddy' width='232' height='50')
+  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarText.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        a.nav-link(href='homePage.html') Home
+      li.nav-item.active
+        a.nav-link(href='listings.html') Listings
+      li.nav-item
+        a.nav-link(href='forum.html')
+          | Forum
+          span.sr-only (current)
+    .form-inline.my-2.my-lg-0
+      button.btn.btn-outline-dark.my-2.my-sm-0(role='button' onclick="window.location.href='loginPage.html'") Login
+// body information
+br
+br
+.container_fluid
+  p.text-center(style='font-size:160%; font-family: serif')
+    | TextBook/Notes Listings
+  p.text-center
+    .container-fluid
+      form.form
+        .row
+          .col-auto(style='width: 100%')
+            input.form-control(type='text' placeholder='Search' aria-label='Search')
+        .row
+          .col-auto
+            // radio buttons
+            .btn-group-inline
+              label
+                input#option1(type='radio' name='options' autocomplete='off')
+                | Notebook
+              label
+                input#option2(type='radio' name='options' autocomplete='off')
+                | Textbook
+              select#myList.btn.btn-sm.btn-light(style='width: auto' action='/listings' method='get')
+                option(value='Select_subject') - Select Subject -
+                option(value='Math') Math
+                option(value='Physics') Physics
+                option(value='Computer_science') Computer Science
+                option(value='Chemistry') Chemistry
+                option(value='Biology') Biology
+                option(value='English') English
+              button.btn.btn-sm.btn-info(type='submit') Search
+    .container-fluid
+      .text-right
+        h6 Want to put a textbook or your notes up for sale?
+        button.btn.btn-sm.btn-info(type='submit' data-toggle='modal' data-target='#myModal') Sell textbook/notebook
+        #myModal.modal.fade(role='dialog')
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header(style='background-color:rgb(228,210,87)')
+                button.close(type='button' data-dismiss='modal') &times;
+              .modal-body
+                h5.text-center Enter information about the notebook or textbook you want to put up for listing.
+                form.form-horizontal(action='/listing/postListing' method='post')
+                  .row
+                    .col-25
+                      label(for='title') Title
+                    .col-75
+                      input#title(type='text' name='title' placeholder='Title')
+                  .row
+                    .col-25
+                      label(for='post_class') Select Subject
+                    .col-75
+                      select#post_class(name='post_class')
+                        option(value='Select_subject') - Select Option -
+                        option(value='Math') Math
+                        option(value='Physics') Physics
+                        option(value='Computer_science') Computer Science
+                        option(value='Chemistry') Chemistry
+                        option(value='Biology') Biology
+                        option(value='English') English
+                  .row
+                    .col-25
+                      label(for='text') Text
+                    .col-75
+                      textarea#subject(name='subject' placeholder='Add a description' style='height:200px')
+                  .row
+                    .col-25
+                      label(for='type')
+                    .col-75
+                      .btn-group-inline
+                        label
+                          input#option1(type='radio' name='options' autocomplete='off')
+                          | Notebook
+                        label
+                          input#option2(type='radio' name='options' autocomplete='off')
+                          | Textbook
+                  .row
+                    .col-25
+                      label(for='price') Price
+                    .col-75
+                      input#price(type='text' name='price' placeholder='Price')
+                  .row
+                    .col-25
+                      label(for='sellerName') Seller Name/Username
+                    .col-75
+                      input#sellerName(type='text' name='sellerName' placeholder='Contact Name')
+                    .col-25
+                      label(for='sellerEmail') Seller Email
+                    .col-75
+                      input#sellerEmail(type='text' name='sellerEmail' placeholder='Contact Email')
+                  .row
+                    .col-75
+                      input(type='submit' value='Submit' style='background-color:rgb(228, 210, 87); color: black;')
+              .modal-footer(style='background-color:rgb(228,210,87);')
+                button.btn.btn-default(type='button' data-dismiss='modal') Close
+      br
+      if(info)
+        for item in info
+          .row
+            .col-12
+              .card
+                .col-15
+                  label#book_title
+                    | #{item.bookTitle}
+                button.btn.btn-light(type='button')
+                  p  #{item.description}
+          br
+      else
+        .row
+          .col-12
+            .card
+              .col-15
+                label#book_title
+                  | Title
+              button.btn.btn-light(type='button')
+                p  Description
+        br
+br

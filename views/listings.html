@@ -208,13 +208,13 @@ input[type=submit]:hover {
 		                        <input type="radio" name="options" id="option2" autocomplete="off">Textbook
 		                      </label>
 				              <select class="btn btn-sm btn-light" id = "myList" style="width: auto">
-				                <option value = "1">- Select Subject -</option>
-				                <option value = "2">Math</option>
-				                <option value = "3">Physics</option>
-				                <option value = "4">Computer Science</option>
-				                <option value = "5">Chemistry</option>
-				                <option value = "6">Biology</option>
-				                <option value = "7">English</option>
+				                <option value="Select_subject">- Select Subject -</option>
+								<option value="Math">Math</option>
+							    <option value="Physics">Physics</option>
+							    <option value="Computer_science">Computer Science</option>
+							    <option value="Chemistry">Chemistry</option>
+							    <option value="Biology">Biology</option>
+								<option value="English">English</option>
 				              </select>
 				              &nbsp;
 		                      <button class="btn btn-sm btn-info" type="submit" >Search</button>
@@ -251,10 +251,10 @@ input[type=submit]:hover {
 										    	</div>
 										    	<div class="col-75">
 										      		<select id="post_class" name="post_class">
-										      			<option value="Select Option">- Select Option -</option>
+										      			<option value="Select_subject">- Select Option -</option>
 														<option value="Math">Math</option>
 													    <option value="Physics">Physics</option>
-													    <option value="Computer Science">Computer Science</option>
+													    <option value="Computer_science">Computer Science</option>
 													    <option value="Chemistry">Chemistry</option>
 													    <option value="Biology">Biology</option>
 														<option value="English">English</option>
@@ -263,12 +263,27 @@ input[type=submit]:hover {
 										  	</div>
 										  	<div class="row">
 										    	<div class="col-25">
-										      		<label for="subject">Text</label>
+										      		<label for="text">Text</label>
 										    	</div>
 										    	<div class="col-75">
 										      		<textarea id="subject" name="subject" placeholder="Add a description" style="height:200px"></textarea>
 										    	</div>
 										    </div>
+										    <div class="row">
+										    	<div class="col-25">
+										      		<label for="type"></label>
+										    	</div>
+										    	<div class="col-75">
+											    	<div class="btn-group-inline">
+											    		<label>
+							                        		<input type="radio" name="options" id="option1" autocomplete="off">Notebook
+							                    		</label>
+							                      		<label>
+							                        		<input type="radio" name="options" id="option2" autocomplete="off">Textbook
+							                      		</label>
+						                      		</div>
+						                      	</div>	
+				                      		</div>
 								       		<div class="row">
 									    		<div class="col-25">
 									      			<label for="price">Price</label>
@@ -309,9 +324,11 @@ input[type=submit]:hover {
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
-							<label id="reply_title">
-								Title
-							</label>
+							<div class="col-15">
+								<label id="book_title">
+									Title
+								</label>
+							</div>
 								<button type="button" class="btn btn-light">
 								<p> Post content </p>
 							</button>

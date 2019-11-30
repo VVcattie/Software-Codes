@@ -40,7 +40,8 @@ app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
 
 
-// login page
+// below are the basic functions to render all of the pages as they are called
+//this uses the .pug pages
 app.get('/loginPage', function(req, res) {
 	res.render('loginPage',{
 		my_title:"Login Page"
@@ -56,6 +57,13 @@ app.get('/signUp', function(req, res){
     my_title:"Sign Up"
   });
 });
+app.get('/paymentPage', function(req, res){
+  res.render('paymentPage',{
+    my_title:"Payment Info"
+  });
+});
+
+//function to see if the account exists
 app.get('/loginPage/checkUserLogin', function(req, res){
   bool validUser = false;
 	db.any('SELECT*FROM users;')
@@ -78,6 +86,7 @@ app.get('/loginPage/checkUserLogin', function(req, res){
 			console.log(err);
 		});
 });
+//function to post a new account to the database
 app.post('/signUp/createAccount', function(req,res){
   var firstNameInput = req.body.firstNameInput;
 	var lastNameInput = req.body.LastNameInput;
@@ -106,7 +115,44 @@ app.post('/signUp/createAccount', function(req,res){
     });
 
 });
+//function to render the listings of textbooks from the database
+app.get('/listings', function(req, res){
+    //check to see if there is a selection, then do the db calls
+    var category = req.query.myList.value;
+    if (category){
+      var callListings = "select * from listings;";
+    }
+    else{
+      var callListings = "select * from listings where listing_category = "+ category + ";";
+    }
+    var listingUser = "select user_username from users right join listings on listing_user_id = user_id;";
+    db.task('get-everything', task => {
+          return task.batch([
+              task.any(callListings),
+              task.any(listingUser)
+          ]);
+      })
+      .then(info => {
+        res.render('/listings',{
+          my_title: "Listings",
+          bookTitle: info[0].listing_title,
+          description: info[0].listing_description,
+          listingCategory: info[0].listing_category,
+          bookType: info[0].listing_booktype,
+          price: info[0].listing_price,
+          condition: info[0].listing_condition,
+          author: info[0].listing_author,
+          listingUser: info[1]
+        })
+      })
+		.catch(function(err){
+			console.log(err);
+		});
+});
+//function to add a new textbook or notebook listing to the database
+app.post('/listings/postListing', function(req,res){
 
+});
 
 
 app.listen(3000);

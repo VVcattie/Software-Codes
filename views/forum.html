@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,144 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<title>Forum Page</title>
 </head>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+	float: left;
+	padding: 20px;
+	height: 100%; /* Should be removed. Only for demonstration */
+}
+
+.leftColumn {
+	width: 30%;
+	//border-right: 1px solid #000;
+}
+
+.rightColumn {
+	width: 70%;
+	border-left: 1px solid #000;
+	height: 100%;
+	overflow: auto;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.vertical-menu {
+  width: 200px; /* Set a width if you like */
+}
+
+.vertical-menu a {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+  background-color: #424240; /* Add a green color to the "active/current" link */
+  color: white;
+}
+.card {
+	/* Add shadows to create the "card" effect */
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
+	padding: 4px 4px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+	padding: 2px 16px;
+}
+@media screen and (max-width: 600px) {
+	.column {
+		width: 100%;
+	}
+
+}
+
+.buttonList{
+	color: black;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 70%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+</style>
 <body style="background-color:rgb(228, 210, 87);">
 	<!-- nav bar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,25 +183,294 @@
 	</nav>
 	<!-- body information -->
 	<br>
-	<div class="container">
-		<p class="text-center" style="font-size:160%;">
-			Forum Page
-		</p>
-		<ul>
-			<li style="font-size:130%;">
-				So here are gonna be some forums
-				<li style="font-size:130%;">
-					We need to add stuff
+  <br>
+
+	<div class="row">
+		<div class="column leftColumn">
+			<p class="text-center" style="font-size:160%; font-family: serif">
+				Subject List
+			</p>
+			<div class="container-fluid" style="line-height:10px;">
+				<div class="row">
+					<div class="col-12" id="math">
+						<br>
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('math_list')">
+						     Math
+							</button>
+						</div>
+							<div class= "btn-group-vertical btn-group-sm" id ="math_list" role="group" style="visibility:hidden; height:0">
+								<br>
+								<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								 	class1
+								</button>
+								<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+									class1
+								</button>
+							</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12" id="physics">
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('physics_list')">
+								 Physics
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="physics_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12" id="computer_science">
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('computer_science_list')">
+								 Computer Science
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="computer_science_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12" id="chemistry">
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('chemistry_list')">
+								 Chemistry
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="chemistry_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12" id="biology">
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('biology_list')">
+								 Biology
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="biology_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12" id="english">
+						<div class="card">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('english_list')">
+								 English
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="english_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+		<!-- Below is the script to show or hide the specific class names under the subject listings -->
+		<script>
+			function viewClassForums(schoolName){
+				if (document.getElementById(schoolName).style.visibility === "hidden"){
+					document.getElementById(schoolName).style.visibility = "visible";
+					document.getElementById(schoolName).style.height = "auto";
+				}
+				else {
+					document.getElementById(schoolName).style.visibility = "hidden";
+					document.getElementById(schoolName).style.height = "0";
+				}
+			}
+		</script>
+		<div class="column rightColumn" >
+			<p class="text-center" style="font-size:160%; font-family: serif">
+				Forum Posts
+			</p>
+			<p class="text-center">
+				<div class="container-fluid">
+					<div class= "text-right">
+							<button class="btn btn-sm btn-info" type="submit" data-toggle="modal" data-target="#myModal">Add a new discussion post</button>
+							<div id="myModal" class="modal fade" role="dialog">
+  							<div class="modal-dialog modal-lg">
+    							<div class="modal-content">
+      							<div class="modal-header" style = "background-color:rgb(228,210,87)">
+        							<button type="button" class="close" data-dismiss="modal">&times;</button>
+      							</div>
+	      						<div class="modal-body">
+											<form class="form-horizontal" action="/action_page.php">
+												<div class="row">
+											    <div class="col-25">
+											      <label for="title">Title</label>
+											    </div>
+											    <div class="col-75">
+											      <input type="text" id="title" name="title" placeholder="Title">
+											    </div>
+											  </div>
+											  <div class="row">
+											    <div class="col-25">
+											      <label for="post_class">Select Class</label>
+											    </div>
+											    <div class="col-75">
+											      <select id="post_class" name="post_class">
+															<option value="Math">Math</option>
+													    <option value="Physics">Physics</option>
+													    <option value="Computer Science">Computer Science</option>
+													    <option value="Chemistry">Chemistry</option>
+													    <option value="Biology">Biology</option>
+															<option value="English">English</option>
+											      </select>
+											    </div>
+											  </div>
+											  <div class="row">
+											    <div class="col-25">
+											      <label for="subject">Text</label>
+											    </div>
+											    <div class="col-75">
+											      <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+											    </div>
+											  </div>
+											  <div class="row">
+													<div class="col-75">
+											      <input type="submit" value="Submit" style="background-color:rgb(228, 210, 87); color: black;">
+											    </div>
+											  </div>
+	  									</form>
+	      						</div>
+	      					<div class="modal-footer" style = "background-color:rgb(228,210,87);">
+	        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      					</div>
+	    					</div>
+	  					</div>
+						</div>
+						</div>
 					<br>
-				</li>
-				<li style="font-size:130%;">
-					Maybe a button that triggers a pop-up window to add a new discussion?
-				</li>
-				<li style="font-size:130%;">
-					And then the page displays all the posts!
-				</li>
-			</ul>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</p>
 		</div>
-		<br>
-	</body>
-	</html>
+	</div>
+	<br>
+</body>
+</html>

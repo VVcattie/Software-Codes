@@ -48,7 +48,7 @@ app.get('/loginPage', function(req, res) {
 	});
 });
 app.get('/homePage', function(req, res){
-  res.render('loginPage',{
+  res.render('homePage',{
     my_title:"Home Page"
   });
 });
@@ -65,7 +65,7 @@ app.get('/paymentPage', function(req, res){
 
 //function to see if the account exists
 app.get('/loginPage/checkUserLogin', function(req, res){
-  bool validUser = false;
+  var validUser = false;
 	db.any('SELECT*FROM users;')
 		.then(function(rows){
       console.log("Username entered" + req.query.username);

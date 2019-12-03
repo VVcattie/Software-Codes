@@ -187,7 +187,7 @@ br
                 button.close(type='button' data-dismiss='modal') &times;
               .modal-body
                 h5.text-center Enter information about the notebook or textbook you want to put up for listing.
-                form.form-horizontal(action='/listing/postListing' method='post')
+                form.form-horizontal(action='/listings/postListing' method='post')
                   .row
                     .col-25
                       label(for='title') Title
@@ -216,10 +216,10 @@ br
                     .col-75
                       .btn-group-inline
                         label
-                          input#option1(type='radio' name='options' autocomplete='off')
+                          input(type='radio' name='optradio' value="1" autocomplete='off')
                           | Notebook
                         label
-                          input#option2(type='radio' name='options' autocomplete='off')
+                          input(type='radio' name='optradio' value="2" autocomplete='off')
                           | Textbook
                   .row
                     .col-25

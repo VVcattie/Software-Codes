@@ -241,16 +241,16 @@ br
               .modal-footer(style='background-color:rgb(228,210,87);')
                 button.btn.btn-default(type='button' data-dismiss='modal') Close
       br
-      if(info)
-        for item in info
+      if(test)
+        for item in test
           .row
             .col-12
               .card
                 .col-15
                   label#book_title
-                    | #{item.bookTitle}
+                    | #{item.listing_title}
                 button.btn.btn-light(type='button')
-                  p  #{item.description}
+                  p  #{item.listing_description}
           br
       else
         .row

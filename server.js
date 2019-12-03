@@ -13,15 +13,12 @@ const pgp = require('pg-promise')();
 
 
 /**********************
-
   Database Connection information
-
   host: This defines the ip address of the server hosting our database.  We'll be using localhost and run our database on our local machine (i.e. can't be access via the Internet)
   port: This defines what port we can expect to communicate to our database.  We'll use 5432 to talk with PostgreSQL
   database: This is the name of our specific database.  From our previous lab, we created the football_db database, which holds our football data tables
   user: This should be left as postgres, the default user account created when PostgreSQL was installed
   password: This the password for accessing the database.  You'll need to set a password USING THE PSQL TERMINAL THIS IS NOT A PASSWORD FOR POSTGRES USER ACCOUNT IN LINUX!
-
 **********************/
 // REMEMBER to chage the password
 
@@ -30,7 +27,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',
 	user: 'postgres',
-	password: 'password'
+	password: 'micronp1100'
 };
 
 let db = pgp(dbConfig);
@@ -77,9 +74,11 @@ app.get('/loginPage/checkUserLogin', function(req, res){
 	 }
    if (validUser){
      console.log("login success");
+     return res.redirect("/homePage");
    }
    else{
      console.log("login failure");
+     return res.redirect("/loginPage");
    }
 		})
 		.catch(function(err){
@@ -92,25 +91,40 @@ app.post('/signUp/createAccount', function(req,res){
 	var lastNameInput = req.body.LastNameInput;
 	var usernameInput = req.body.usernameInput;
   var passwordInput = req.body.passwordInput;
-  var emailInput = req.body.emailInput; 
+  var emailInput = req.body.emailInput;
+  var validUser = false;
 
-	var insert_statement = "INSERT INTO users(user_id, user_password, user_email, user_first_name, user_last_name) VALUES('" + 1 + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
-
-	var user_select = 'select * from users;';
-	db.task('get-everything', task => {
-        return task.batch([
-            task.any(insert_statement),
-            task.any(user_select)
-        ]);
+  db.any('SELECT*FROM users;')
+    .then(function(rows){
+      console.log("Username entered" + usernameInput);
+      console.log("Password entered" + passwordInput);
+      for (var i=0;i < rows.length;i++){
+    if (rows[i].user_username == usernameInput || rows[i].user_email == emailInput){
+      validUser = true;
+    }
+   }
+   if (validUser){
+     console.log("account already exists");
+   }
+   else{
+     let insert_statement = "INSERT INTO users(user_username, user_password, user_email, user_first_name, user_last_name) VALUES('" + usernameInput + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
+     db.any(insert_statement)
+       .then(function(){
+         console.log('success added!')
+       })
+       .catch(function(err){
+         console.log(err);
+       });
+   }
     })
-    .catch(error => {
-        // display error message in case an error
-            console.log('error'); //if this doesn't work for you replace with console.log
-            res.render('signUp', {
-                title: 'Sign Up',
-            })
+    .catch(function(err){
+      console.log(err);
     });
-
+    /*
+    // TODO:
+    create function that has a pop up that informs the user that the email/username already exists in the database, tells them to use something else
+    */
+    //if the usercheck returned no users, create the account
 });
 //function to render the listings of textbooks from the database
 app.get('/listings', function(req, res){

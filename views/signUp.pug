@@ -14,7 +14,7 @@ head
   title Sign Up
 .card.bg-white
   .card-header
-    a.btn.btn-outline-light(href='loginPage.pug' role='button')
+    a.btn.btn-outline-light(href='loginPage' role='button')
       img(src='resources/img/TextBuddy_heading.png' alt='TextBuddy' width='232px' height='50px')
 br
 // page body
@@ -61,7 +61,7 @@ center
       .container-fluid
         .form-row
           .form-group.col-md-6
-            button.btn.btn-outline-dark(href='homePage.pug' role='button' type='submit') Create Account
+            button.btn.btn-outline-dark(href='homePage' role='button' type='submit') Create Account
           .form-group.col-md-6
             .form-check.form-check-inline
               input#cuStudent.form-check-input(type='radio' name='studentStatus' value='CU Student' required='')
@@ -73,4 +73,4 @@ center
 .form-group
   center
     small#accountHelp.form-text.text-muted Already have an account?
-    a.btn.btn-info(href='loginPage.pug' role='button') Login
+    a.btn.btn-info(href='loginPage' role='button') Login

@@ -11,6 +11,8 @@ const pug = require('pug'); // Add the 'pug' view engine
 //Create Database Connection
 const pgp = require('pg-promise')();
 
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 /**********************
   Database Connection information
@@ -25,25 +27,66 @@ const pgp = require('pg-promise')();
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textbuddy_database',
+	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
 	password: 'password'
 };
 
 let db = pgp(dbConfig);
 
-// set the view engine to ejs
+// set the view engine to pug
 app.set('view engine', 'pug');
 app.use(express.static(__dirname + '/')); // This line is necessary for us to use relative paths and access our resources directory
+app.use(cookieParser());
 
+app.use(session({
+    key: 'usersid', //name of cookie
+    secret: 'sreesha193',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000 //max age of cookie is 10 minutes
+    }
+}));
+
+//automatically log user out if session user is not set but user session cookie is stil set
+app.use((req, res, next) => {
+  if(req.cookies)
+  {
+    if(!req.session.user && req.cookies.usersid)
+    {
+      res.clearCookie('usersid');
+    }
+  }
+  next();
+});
 
 // below are the basic functions to render all of the pages as they are called
 //this uses the .pug pages
 app.get('/loginPage', function(req, res) {
-	res.render('loginPage',{
-		my_title:"Login Page"
-	});
+
+  //checks if user is logged in or not and directs them to the corresponding page
+  var logged_in = false;
+  if(req.cookies) {
+    if(req.session.user && req.cookies.user_sid) {
+      logged_in = true;
+    }
+  }
+
+  if(logged_in) {
+    res.render('homePage',{
+      my_title:"Home Page", 
+      logged_in: 'Logout'
+    });
+  } else {
+    res.render('loginPage',{
+      my_title:"Login Page", 
+      logged_in: 'Login'
+    });
+  }
+	
 });
+
 app.get('/homePage', function(req, res){
   res.render('homePage',{
     my_title:"Home Page"

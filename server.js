@@ -131,7 +131,7 @@ app.get('/listings', function(req, res){
     //check to see if there is a selection, then do the db calls
 
     var callListings = "select * from listings;";
-    var listingUser = "select user_username from users right join listings on listing_username = user_username;";
+    var listingUser = "select user_username from users right join listings on listing_email = user_email;";
     db.task('get-everything', task => {
           return task.batch([
               task.any(callListings),
@@ -141,18 +141,14 @@ app.get('/listings', function(req, res){
       .then(info => {
         res.render('listings',{
           my_title: "Listings",
-          bookTitle: info[0].listing_title,
-          description: info[0].listing_description,
-          listingCategory: info[0].listing_category,
-          bookType: info[0].listing_booktype,
-          price: info[0].listing_price,
-          condition: info[0].listing_condition,
-          author: info[0].listing_author,
+          test: info[0],
           listingUsername: info[1]
         })
+
+          console.log('listings retreiveal success');
       })
 		.catch(function(err){
-			console.log(err);
+			console.log('listings retreiveal failed...');
 		});
 });
 //function to add a new textbook or notebook listing to the database
@@ -188,7 +184,28 @@ app.post('/listings/postListing', function(req,res){
           // display error message in case an error
               console.log('error'); //if this doesn't work for you replace with console.log
       });
-      //res.redirect(307, '/listings');
+      res.redirect('back');
+});
+
+app.get('/forum', function(req,res){
+  var callPosts = 'select * from topics';
+  db.task('get-everything', task => {
+        return task.batch([
+            task.any(callPosts)
+        ]);
+    })
+    .then(info => {
+      res.render('forum',{
+        my_title: "Forum",
+        data: info[0]
+      })
+
+        console.log('post retreiveal success');
+    })
+  .catch(function(err){
+    console.log('post retreiveal failed...');
+  });
+
 });
 
 

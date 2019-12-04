@@ -27,7 +27,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'password'
 };
 
 let db = pgp(dbConfig);
@@ -207,6 +207,7 @@ app.get('/forum', function(req,res){
   });
 
 });
+
 
 
 app.listen(3000);

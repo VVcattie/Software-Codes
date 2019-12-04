@@ -127,6 +127,8 @@ style.
   margin-top: 0;
   }
   }
+
+body(style='background-color:rgb(228, 210, 87);')
 // nav bar
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
   a.navbar-brand(href='homePage')
@@ -246,11 +248,45 @@ br
           .row
             .col-12
               .card
-                .col-15
-                  label#book_title
-                    | #{item.listing_title}
-                button.btn.btn-light(type='button')
-                  p  #{item.listing_description}
+                .card-body
+                  .row
+                    b &nbsp;
+                    b &nbsp;
+                    .h5#listing_title.card-title 
+                      | #{item.listing_title}
+                  .row
+                    b &nbsp;
+                    b &nbsp;
+                    .col-15
+                      h6#listing_subject.card-subtitle.mb-2.text-muted
+                        | #{item.listing_subject}
+                    .col-15
+                      h6#listing_subject.card-subtitle.mb-2.text-muted
+                        b &nbsp
+                        | -------------
+                    .col-15
+                      h6#listing_subject.card-subtitle.mb-2.text-muted
+                        b &nbsp
+                        i sold by #{item.listing_username}
+                  .row
+                    b &nbsp;
+                    b &nbsp;
+                    p#listing_description.card-text
+                      | Book Description #{item.listing_description}
+                  .row
+                    b &nbsp;
+                    b &nbsp;
+                    .col-15
+                      h#listing_booktype.card-subtitle.mb-2.text-muted.small
+                        if (item.listing_booktype == 1)
+                          | notebook
+                        else
+                          | textbook
+                    .col-15
+                      b &nbsp
+                      b &nbsp
+                      h#listing_price.card-subtitle.mb-2.text-muted
+                        | #{item.listing_price}
           br
       else
         .row

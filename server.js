@@ -106,8 +106,8 @@ app.get('/paymentPage', function(req, res){
 //function to see if the account exists
 app.post('/loginPage/checkUserLogin', function(req, res){
   var validUser = false;
-  var username = req.query.username;
-  var password = req.query.password;
+  var username = req.body.username;
+  var password = req.body.password;
   db.any('SELECT*FROM users;')
   .then(function(rows){
     console.log("Username entered" + username);
@@ -118,12 +118,13 @@ app.post('/loginPage/checkUserLogin', function(req, res){
      }
    }
    if(validUser){ //login success
-     console.log("login success for user " + username);
+     console.log("Login success for user " + username + "...");
      req.session.user = username; //user session is the same as username
+     console.log(req.session.user);
      return res.redirect("/homePage");
    }
    else{  //failed to login
-     console.log("login failure");
+     console.log("Login failure!");
      return res.redirect("/loginPage");
    }
  })
@@ -269,4 +270,4 @@ app.get('/forum', function(req,res){
 
 
 app.listen(3000);
-console.log('website up and moving');
+console.log('TextBuddy up and moving');

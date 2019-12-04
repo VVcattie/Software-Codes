@@ -21,7 +21,7 @@ var session = require('express-session');
   database: This is the name of our specific database.  From our previous lab, we created the football_db database, which holds our football data tables
   user: This should be left as postgres, the default user account created when PostgreSQL was installed
   password: This the password for accessing the database.  You'll need to set a password USING THE PSQL TERMINAL THIS IS NOT A PASSWORD FOR POSTGRES USER ACCOUNT IN LINUX!
-**********************/
+  **********************/
 // REMEMBER to chage the password
 
 const dbConfig = {
@@ -46,8 +46,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         expires: 600000 //max age of cookie is 10 minutes
-    }
-}));
+      }
+    }));
 
 //automatically log user out if session user is not set but user session cookie is stil set
 app.use((req, res, next) => {
@@ -84,7 +84,7 @@ app.get('/loginPage', function(req, res) {
       loggedIn: logged_in
     });
   }
-	
+
 });
 
 app.get('/homePage', function(req, res){
@@ -104,73 +104,86 @@ app.get('/paymentPage', function(req, res){
 });
 
 //function to see if the account exists
-app.get('/loginPage/checkUserLogin', function(req, res){
+app.post('/loginPage/checkUserLogin', function(req, res){
   var validUser = false;
-	db.any('SELECT*FROM users;')
-		.then(function(rows){
-      console.log("Username entered" + req.query.username);
-      console.log("Password entered" + req.query.password);
-			for (var i=0;i < rows.length;i++){
-		if (rows[i].user_username == req.query.username && rows[i].user_password == req.query.password){
-			validUser = true;
-		}
-	 }
-   if (validUser){
-     console.log("login success");
+  var username = req.query.username;
+  var password = req.query.password;
+  db.any('SELECT*FROM users;')
+  .then(function(rows){
+    console.log("Username entered" + username);
+    console.log("Password entered" + password);
+    for (var i=0;i < rows.length;i++){
+      if (rows[i].user_username == username && rows[i].user_password == password){
+       validUser = true;
+     }
+   }
+   if(validUser){ //login success
+     console.log("login success for user " + username);
+     req.session.user = username; //user session is the same as username
      return res.redirect("/homePage");
    }
-   else{
+   else{  //failed to login
      console.log("login failure");
      return res.redirect("/loginPage");
    }
-		})
-		.catch(function(err){
-			console.log(err);
-		});
+ })
+  .catch(function(err){
+   console.log(err);
+ });
 });
+
+app.get('/logout', function(req, res) {
+  if(req.cookies) {
+    if(req.session.user && req.cookies.user_sid) { //user is logged in
+      res.clearCookie('usersid'); //logout user
+    }
+  }
+  res.redirect('/loginPage');
+});
+
 //function to post a new account to the database
 app.post('/signUp/createAccount', function(req,res){
   var firstNameInput = req.body.firstNameInput;
-	var lastNameInput = req.body.LastNameInput;
-	var usernameInput = req.body.usernameInput;
+  var lastNameInput = req.body.LastNameInput;
+  var usernameInput = req.body.usernameInput;
   var passwordInput = req.body.passwordInput;
   var emailInput = req.body.emailInput;
   var validUser = false;
 
   db.any('SELECT*FROM users;')
-    .then(function(rows){
-      console.log("Username entered" + usernameInput);
-      console.log("Password entered" + passwordInput);
-      for (var i=0;i < rows.length;i++){
-    if (rows[i].user_username == usernameInput || rows[i].user_email == emailInput){
-      validUser = true;
+  .then(function(rows){
+    console.log("Username entered" + usernameInput);
+    console.log("Password entered" + passwordInput);
+    for (var i=0;i < rows.length;i++){
+      if (rows[i].user_username == usernameInput || rows[i].user_email == emailInput){
+        validUser = true;
+      }
     }
-   }
-   if (validUser){
+    if (validUser){
      console.log("account already exists");
      res.redirect("/signUp");
    }
    else{
      let insert_statement = "INSERT INTO users(user_username, user_password, user_email, user_first_name, user_last_name) VALUES('" + usernameInput + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
      db.any(insert_statement)
-       .then(function(){
-         console.log('success added!')
-         res.redirect("/loginPage");
-       })
-       .catch(function(err){
-         console.log(err);
-       });
+     .then(function(){
+       console.log('success added!')
+       res.redirect("/loginPage");
+     })
+     .catch(function(err){
+       console.log(err);
+     });
    }
-    })
-    .catch(function(err){
-      console.log(err);
-    });
+ })
+  .catch(function(err){
+    console.log(err);
+  });
     /*
     // TODO:
     create function that has a pop up that informs the user that the email/username already exists in the database, tells them to use something else
     */
     //if the usercheck returned no users, create the account
-});
+  });
 //function to render the listings of textbooks from the database
 app.get('/listings', function(req, res){
     //check to see if there is a selection, then do the db calls
@@ -178,75 +191,75 @@ app.get('/listings', function(req, res){
     var callListings = "select * from listings;";
     var listingUser = "select user_username from users right join listings on listing_email = user_email;";
     db.task('get-everything', task => {
-          return task.batch([
-              task.any(callListings),
-              task.any(listingUser)
-          ]);
+      return task.batch([
+        task.any(callListings),
+        task.any(listingUser)
+        ]);
+    })
+    .then(info => {
+      res.render('listings',{
+        my_title: "Listings",
+        test: info[0],
+        listingUsername: info[1]
       })
-      .then(info => {
-        res.render('listings',{
-          my_title: "Listings",
-          test: info[0],
-          listingUsername: info[1]
-        })
 
-          console.log('listings retreiveal success');
-      })
-		.catch(function(err){
-			console.log('listings retreiveal failed...');
-		});
-});
+      console.log('listings retreiveal success');
+    })
+    .catch(function(err){
+     console.log('listings retreiveal failed...');
+   });
+  });
 //function to add a new textbook or notebook listing to the database
 app.post('/listings/postListing', function(req,res){
-    var title = req.body.title;
-    var category = req.body.post_class;
-    var description = req.body.subject;
-    var price = req.body.price;
-    var username = req.body.sellerName;
-    var email = req.body.sellerEmail;
-    var bookType = req.body.optradio;
-    console.log("email: " + email);
-    console.log("title: " + title);
-    console.log("category: " + category);
-    console.log("description: " + description);
-    console.log("bookType: " + bookType);
-    console.log("Price: " + price);
-    console.log("username: " + username);
-    var getUserID = "select * from users where user_email = '" + email + "';";
-    var userID;
-    db.any(getUserID)
-  		.then(function(rows){
-        userID = rows[0].user_username;
-        console.log("userID: " +userID);
-      });
+  var title = req.body.title;
+  var category = req.body.post_class;
+  var description = req.body.subject;
+  var price = req.body.price;
+  var username = req.body.sellerName;
+  var email = req.body.sellerEmail;
+  var bookType = req.body.optradio;
+  console.log("email: " + email);
+  console.log("title: " + title);
+  console.log("category: " + category);
+  console.log("description: " + description);
+  console.log("bookType: " + bookType);
+  console.log("Price: " + price);
+  console.log("username: " + username);
+  var getUserID = "select * from users where user_email = '" + email + "';";
+  var userID;
+  db.any(getUserID)
+  .then(function(rows){
+    userID = rows[0].user_username;
+    console.log("userID: " +userID);
+  });
       //todo fix username entry
-    var insertStatement = "INSERT INTO listings(listing_title, listing_username, listing_description, listing_subject, listing_booktype, listing_price, listing_email) VALUES('"+ title + "','" + userID + "', '" + description + "','" + category + "'," + bookType + ","+price+",'"+email+"') ON CONFLICT DO NOTHING;";
-    db.any(insertStatement)
+      var insertStatement = "INSERT INTO listings(listing_title, listing_username, listing_description, listing_subject, listing_booktype, listing_price, listing_email) VALUES('"+ title + "','" + userID + "', '" + description + "','" + category + "'," + bookType + ","+price+",'"+email+"') ON CONFLICT DO NOTHING;";
+      db.any(insertStatement)
       .then(function(){
         console.log('success added!')
       })
       .catch(error => {
           // display error message in case an error
               console.log('error'); //if this doesn't work for you replace with console.log
-      });
+            });
       res.redirect('back');
-});
+    });
 
 app.get('/forum', function(req,res){
   var callPosts = 'select * from topics';
   db.task('get-everything', task => {
-        return task.batch([
-            task.any(callPosts)
-        ]);
+    return task.batch([
+      task.any(callPosts)
+      ]);
+  })
+  .then(info => {
+    res.render('forum',{
+      my_title: "Forum",
+      data: info[0]
     })
-    .then(info => {
-      res.render('forum',{
-        my_title: "Forum",
-        data: info[0]
-      })
 
-        console.log('post retreiveal success');
-    })
+    console.log('post retreiveal success');
+  })
   .catch(function(err){
     console.log('post retreiveal failed...');
   });

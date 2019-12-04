@@ -1,10 +1,13 @@
 
 const express = require('express'); // Add the express framework has been added
 let app = express();
+var session=require('express-session');
 
 const bodyParser = require('body-parser'); // Add the body-parser tool has been added
 app.use(bodyParser.json());              // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
+app.use(session({secret:"sreesha19", resave:false, saveUnitialized:true, cookie: {maxAge: 600000}}));
+
 
 const pug = require('pug'); // Add the 'pug' view engine
 
@@ -63,16 +66,19 @@ app.get('/paymentPage', function(req, res){
 //function to see if the account exists
 app.get('/loginPage/checkUserLogin', function(req, res){
 	var validUser = false;
+	var username = req.query.username;
+	var password = req.query.password;
 	db.any('SELECT*FROM users;')
 	.then(function(rows){
-		console.log("Username entered" + req.query.username);
-		console.log("Password entered" + req.query.password);
+		console.log("Username entered" + username);
+		console.log("Password entered" + password);
 		for (var i=0;i < rows.length;i++){
-			if (rows[i].user_username == req.query.username && rows[i].user_password == req.query.password){
+			if (rows[i].user_username == username && rows[i].user_password == password){
 				validUser = true;
 			}
 		}
 		if (validUser){
+			req.session.user = user;	//session
 			console.log("login success");
 			return res.redirect("/homePage");
 		}
@@ -85,6 +91,15 @@ app.get('/loginPage/checkUserLogin', function(req, res){
 		console.log(err);
 	});
 });
+
+app.get('dashboard', function(req, res) {
+	if(!req.session.user) {
+		return res.status(401).send();
+	} else {
+		return res.status(200).send("Welcome to TextBuddy");
+	}
+})
+
 //function to post a new account to the database
 app.post('/signUp/createAccount', function(req,res){
 	var firstNameInput = req.body.firstNameInput;
@@ -96,8 +111,6 @@ app.post('/signUp/createAccount', function(req,res){
 
 	db.any('SELECT*FROM users;')
 	.then(function(rows){
-		console.log("Username entered: " + usernameInput);
-		console.log("Password entered: " + passwordInput);
 		for (var i=0;i < rows.length;i++){
 			if (rows[i].user_username == usernameInput || rows[i].user_email == emailInput){
 				validUser = true;

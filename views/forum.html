@@ -155,7 +155,7 @@ input[type=submit]:hover {
 }
 
 </style>
-<body style="background-color:rgb(228, 210, 87);" onload="javascript:viewClassForums('none')">
+<body style="background-color:rgb(228, 210, 87);">
 	<!-- nav bar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="homePage.html">
@@ -177,7 +177,7 @@ input[type=submit]:hover {
 				</li>
 			</ul>
 			<div class="form-inline my-2 my-lg-0">
-				<button class="btn btn-outline-dark my-2 my-sm-0" role="button" onclick="window.location.href='loginPage.html'">Login</button>
+				<button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Logout</button>
 			</div>
 		</div>
 	</nav>
@@ -195,10 +195,19 @@ input[type=submit]:hover {
 					<div class="col-12" id="math">
 						<br>
 						<div class="card">
-							<button type="button" class="btn btn-light btn-sm" action="viewClassForums('math_list')">
+							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('math_list')">
 						     Math
 							</button>
 						</div>
+							<div class= "btn-group-vertical btn-group-sm" id ="math_list" role="group" style="visibility:hidden; height:0">
+								<br>
+								<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								 	class1
+								</button>
+								<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+									class1
+								</button>
+							</div>
 					</div>
 				</div>
 				<div class="row">
@@ -206,6 +215,15 @@ input[type=submit]:hover {
 						<div class="card">
 							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('physics_list')">
 								 Physics
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="physics_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
 							</button>
 						</div>
 					</div>
@@ -217,6 +235,15 @@ input[type=submit]:hover {
 								 Computer Science
 							</button>
 						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="computer_science_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -224,6 +251,15 @@ input[type=submit]:hover {
 						<div class="card">
 							<button type="button" class="btn btn-light btn-sm" onclick="viewClassForums('chemistry_list')">
 								 Chemistry
+							</button>
+						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="chemistry_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
 							</button>
 						</div>
 					</div>
@@ -235,6 +271,15 @@ input[type=submit]:hover {
 								 Biology
 							</button>
 						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="biology_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -244,18 +289,40 @@ input[type=submit]:hover {
 								 English
 							</button>
 						</div>
+						<div class= "btn-group-vertical btn-group-sm" id ="english_list" role="group" style="visibility:hidden; height:0">
+							<br>
+							<button type="button buttonList" class="btn btn-link" style="color:indigo" >
+								class2
+							</button>
+							<button type="button buttonLIst" class="btn btn-link" style="color:indigo">
+								class2
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 	  </div>
-
+		<!-- Below is the script to show or hide the specific class names under the subject listings -->
+		<script>
+			function viewClassForums(schoolName){
+				if (document.getElementById(schoolName).style.visibility === "hidden"){
+					document.getElementById(schoolName).style.visibility = "visible";
+					document.getElementById(schoolName).style.height = "auto";
+				}
+				else {
+					document.getElementById(schoolName).style.visibility = "hidden";
+					document.getElementById(schoolName).style.height = "0";
+				}
+			}
+		</script>
 		<div class="column rightColumn" >
 			<p class="text-center" style="font-size:160%; font-family: serif">
 				Forum Posts
 			</p>
 			<p class="text-center">
-				<div class="container-fluid" id="ForumContainer">
+				<div class="container-fluid">
 					<div class= "text-right">
+							<!--BUTTON FOR ADDING A NEW DISCUSSION POST-->
 							<button class="btn btn-sm btn-info" type="submit" data-toggle="modal" data-target="#myModal">Add a new discussion post</button>
 							<div id="myModal" class="modal fade" role="dialog">
   							<div class="modal-dialog modal-lg">
@@ -310,27 +377,104 @@ input[type=submit]:hover {
 	  					</div>
 						</div>
 						</div>
+						<!--END OF BUTTON FOR ADDING A NEW DISCUSSION POST-->
 					<br>
-					<script>
-						function viewClassForums(schoolName){
-								/* TEMPLATE
-								<div class="row">
-									<div class="col-12">
-										<div class="card">
-											<label id="reply_title">
-												Title
-											</label>
-												<button type="button" class="btn btn-light">
-												<p> Post content </p>
-											</button>
-										</div>
-									</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+								    <h5 class="card-title" id="post_title">Post Title</h5>
+								    <h6 class="card-subtitle mb-2 text-muted" id="post_subject">Post Subject</h6>
+								    <p class="card-text" id="post_content">Post Description: Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <p class="card-subtitle mb-2 text-muted small" id="post_date">11/11/2019</p>
+								    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#replyButton">REPLY</button>
 								</div>
-								<br>
-								*/
-								//todo: make a function that only accepts subjects clicked by the button
-						}
-					</script>
+								<ul class="list-group list-group-flush">
+								    <li class="list-group-item">
+								    	<p class="card-subtitle mb-2 text-muted small"><i>username replies...</i></p>
+								    	<h>Cras justo odio</h>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<label id="reply_title">
+									Title
+								</label>
+									<button type="button" class="btn btn-light">
+									<p> Post content </p>
+								</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<!--BUTTON FOR REPLYING TO A DISCUSSION POST-->
+				<div id="replyButton" class="modal fade" role="dialog">
+						<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header" style = "background-color:rgb(228,210,87)">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+  						<div class="modal-body">
+  							<div class="container-fluid">
+								<form class="form-horizontal" action="/action_page.php">
+									<div class="row">
+								    <div class="col-25">
+								      <label for="userName">Username</label>
+								    </div>
+								    <div class="col-75">
+								      <input type="text" id="replyUsername" name="username" placeholder="Username">
+								    </div>
+								  </div>
+								  <div class="row">
+								    <div class="col-25">
+								      <label for="reply">Reply</label>
+								    </div>
+								    <div class="col-75">
+								      <textarea id="postReply" name="reply" placeholder="Write something.." style="height:200px"></textarea>
+								    </div>
+								  </div>
+								  <div class="row">
+										<div class="col-75">
+								      <input type="submit" value="Submit" style="background-color:rgb(228, 210, 87); color: black;">
+								    </div>
+								  </div>
+								</form>
+							</div>
+  						</div>
+  					<div class="modal-footer" style = "background-color:rgb(228,210,87);">
+    					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  					</div>
 				</div>
 			</p>
 		</div>
@@ -338,3 +482,28 @@ input[type=submit]:hover {
 	<br>
 </body>
 </html>
+<script>
+	document.getElementById("menu_images").onchange = function () {
+        var reader = new FileReader();
+        if(this.files[0].size>528385){
+            alert("Image Size should not be greater than 500Kb");
+            $("#menu_image").attr("src","blank");
+            $("#menu_image").hide();  
+            $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+            $('#menu_images').unwrap();     
+            return false;
+        }
+        if(this.files[0].type.indexOf("image")==-1){
+            alert("Invalid Type");
+            $("#menu_image").attr("src","blank");
+            $("#menu_image").hide();  
+            $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+            $('#menu_images').unwrap();         
+            return false;
+        }   
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("menu_image").src = e.target.result;
+            $("#menu_image").show(); 
+        };
+</script>

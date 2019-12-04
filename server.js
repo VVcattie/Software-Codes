@@ -27,7 +27,7 @@ var session = require('express-session');
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
+	database: 'textbuddy_db',  //name of database (CHANGE accordingly)
 	user: 'postgres',
 	password: 'password'
 };
@@ -76,12 +76,12 @@ app.get('/loginPage', function(req, res) {
   if(logged_in) {
     res.render('homePage',{
       my_title:"Home Page", 
-      logged_in: 'Logout'
+      loggedIn: logged_in
     });
   } else {
     res.render('loginPage',{
       my_title:"Login Page", 
-      logged_in: 'Login'
+      loggedIn: logged_in
     });
   }
 	
@@ -148,12 +148,14 @@ app.post('/signUp/createAccount', function(req,res){
    }
    if (validUser){
      console.log("account already exists");
+     res.redirect("/signUp");
    }
    else{
      let insert_statement = "INSERT INTO users(user_username, user_password, user_email, user_first_name, user_last_name) VALUES('" + usernameInput + "','" + passwordInput + "','" + emailInput +"','" + firstNameInput +"','" +lastNameInput +"') ON CONFLICT DO NOTHING;";
      db.any(insert_statement)
        .then(function(){
          console.log('success added!')
+         res.redirect("/loginPage");
        })
        .catch(function(err){
          console.log(err);

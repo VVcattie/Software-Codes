@@ -68,10 +68,11 @@ app.get('/loginPage', function(req, res) {
   //checks if user is logged in or not and directs them to the corresponding page
   var logged_in = false;
   if(req.cookies) {
-    if(req.session.user && req.cookies.user_sid) {
+    if(req.session.user && req.cookies.usersid) {
       logged_in = true;
     }
   }
+  console.log("Logged in: " + logged_in);
 
   if(logged_in) {
     res.render('homePage',{
@@ -88,15 +89,27 @@ app.get('/loginPage', function(req, res) {
 });
 
 app.get('/homePage', function(req, res){
+  //checks if user is logged in or not and directs them to the corresponding page
+  var logged_in = false;
+  if(req.cookies) {
+    if(req.session.user && req.cookies.usersid) {
+      logged_in = true;
+    }
+  }
+  console.log("Logged in: " + logged_in);
+
   res.render('homePage',{
-    my_title:"Home Page"
+    my_title:"Home Page", 
+    loggedIn: logged_in
   });
 });
+
 app.get('/signUp', function(req, res){
   res.render('signUp',{
     my_title:"Sign Up"
   });
 });
+
 app.get('/paymentPage', function(req, res){
   res.render('paymentPage',{
     my_title:"Payment Info"
@@ -120,7 +133,6 @@ app.post('/loginPage/checkUserLogin', function(req, res){
    if(validUser){ //login success
      console.log("Login success for user " + username + "...");
      req.session.user = username; //user session is the same as username
-     console.log(req.session.user);
      return res.redirect("/homePage");
    }
    else{  //failed to login
@@ -135,7 +147,7 @@ app.post('/loginPage/checkUserLogin', function(req, res){
 
 app.get('/logout', function(req, res) {
   if(req.cookies) {
-    if(req.session.user && req.cookies.user_sid) { //user is logged in
+    if(req.session.user && req.cookies.usersid) { //user is logged in
       res.clearCookie('usersid'); //logout user
     }
   }

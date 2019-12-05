@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'divy123'
 };
 
 let db = pgp(dbConfig);
@@ -263,6 +263,43 @@ app.post('/listings/postListing', function(req,res){
     }
 });
 
+app.post('/listings/searchListings', function(req,res){
+  var title = req.body.title;
+  var category = req.body.myList;
+  var bookType = req.body.optradio;
+  console.log("title: " + title);
+  console.log("category: " + category);
+  console.log("bookType: " + bookType);
+
+  if (bookType == undefined){
+    bookType = 2;
+  }
+  //todo fix username entry
+  var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
+  //var callListings = "select * from listings;";
+  var listingUser = "select user_username from users right join listings on listing_email = user_email;";
+  db.task('get-everything', task => {
+    return task.batch([
+      task.any(queryFilter),
+      task.any(listingUser)
+      ]);
+  })
+
+  .then(info => {
+    res.render('listings',{
+      my_title: "Listings",
+      test: info[0],
+      listingUsername: info[1]
+    })
+
+    console.log('listings retreiveal success');
+  })
+
+  .catch(function(err){
+   console.log('listings retreiveal failed...');
+  });
+});
+
 app.get('/forum', function(req,res){
   var listSelection = req.body.listSubject;
   if (listSelection){
@@ -272,6 +309,7 @@ app.get('/forum', function(req,res){
     var callPosts = 'select * from topics;';
   }
   var callReplies = 'select * from replies;';
+
   db.task('get-everything', task => {
     return task.batch([
       task.any(callPosts),

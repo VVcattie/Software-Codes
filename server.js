@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'password'
+	password: 'micronp1100'
 };
 
 let db = pgp(dbConfig);
@@ -220,11 +220,6 @@ app.get('/listings', function(req, res){
     })
     .catch(function(err){
      console.log('listings retreiveal failed...');
-     	res.render('listings',{
-        my_title: "Listings",
-        test: "",
-        listingUsername: ""
-      })
    });
   });
 //function to add a new textbook or notebook listing to the database
@@ -262,7 +257,7 @@ app.post('/listings/postListing', function(req,res){
         })
         .catch(error => {
             // display error message in case an error
-                console.log(error); //if this doesn't work for you replace with console.log
+                console.log('error'); //if this doesn't work for you replace with console.log
               });
         res.redirect('back');
     }
@@ -306,9 +301,10 @@ app.post('/listings/searchListings', function(req,res){
 });
 
 app.get('/forum', function(req,res){
-  var listSelection = req.body.listSubject;
-  if (listSelection){
-    var callPosts = 'select * from topics where topic_subject = '+ listSelection;
+  var subjectSelect = req.query.optradio;
+  if (subjectSelect){
+    console.log("radio: "+ subjectSelect);
+    var callPosts = "select * from topics where topic_subject = '"+ subjectSelect + "';";
   }
   else{
     var callPosts = 'select * from topics;';
@@ -322,6 +318,7 @@ app.get('/forum', function(req,res){
       ]);
   })
   .then(info => {
+
     res.render('forum',{
       my_title: "Forum",
       topics: info[0],
@@ -372,7 +369,7 @@ app.post('/forum/postReply', function(req,res){
     })
     .catch(error => {
         // display error message in case an error
-            console.log(error); //if this doesn't work for you replace with console.log
+            console.log('error'); //if this doesn't work for you replace with console.log
           });
     res.redirect('back');
   }

@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'divy123'
 };
 
 let db = pgp(dbConfig);
@@ -272,10 +272,12 @@ app.post('/listings/searchListings', function(req,res){
   console.log("bookType: " + bookType);
 
   if (bookType == undefined){
-    bookType = 2;
+    var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "');";
   }
+  else{
   //todo fix username entry
-  var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
+    var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
+  }
   //var callListings = "select * from listings;";
   var listingUser = "select user_username from users right join listings on listing_email = user_email;";
   db.task('get-everything', task => {
@@ -301,10 +303,9 @@ app.post('/listings/searchListings', function(req,res){
 });
 
 app.get('/forum', function(req,res){
-  var subjectSelect = req.query.optradio;
-  if (subjectSelect){
-    console.log("radio: "+ subjectSelect);
-    var callPosts = "select * from topics where topic_subject = '"+ subjectSelect + "';";
+  var listSelection = req.body.listSubject;
+  if (listSelection){
+    var callPosts = 'select * from topics where topic_subject = '+ listSelection;
   }
   else{
     var callPosts = 'select * from topics;';
@@ -318,7 +319,6 @@ app.get('/forum', function(req,res){
       ]);
   })
   .then(info => {
-
     res.render('forum',{
       my_title: "Forum",
       topics: info[0],

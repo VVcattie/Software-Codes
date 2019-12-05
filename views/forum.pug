@@ -242,15 +242,25 @@ br
                       | #{item.topic_body}
                     p#post_date.card-subtitle.mb-2.text-muted.small
                       | 11/11/2019
-                    button.btn.btn-light(type='button' data-toggle='modal' data-target='#replyButton') REPLY
-            if replies
-              for item2 in replies
-                if item2.reply_topic_id == item.topic_id
-                  ul.list-group.list-group-flush
-                    li.list-group-item
-                      p.card-subtitle.mb-2.text-muted.small
-                        i #{item2.reply_username} replies...
-                      h #{item2.reply_body}
+                  if replies
+                    for item2 in replies
+                      if item2.reply_topic_id == item.topic_id
+                        ul.list-group.list-group-flush
+                          li.list-group-item
+                            p.card-subtitle.mb-2.text-muted.small
+                              i #{item2.reply_username} replies...
+                            h #{item2.reply_body}
+                  .container-fluid
+                    form.form-horizontal(action="/forum/postReply?id="+item.topic_id method='post')
+                      .row
+                        .col-25
+                          label(for='reply') Reply
+                        .col-75
+                          textarea(id='postReply'+item.topic_id name='postReply'+item.topic_id, placeholder='Write something..', style='height:200px')
+                      .row
+                        .col-75
+                          input(type='submit', value='Reply', style='background-color:rgb(228, 210, 87); color: black;')
+
             br
 
 
@@ -260,29 +270,7 @@ br
   br
 // BUTTON FOR REPLYING TO A DISCUSSION POST
 // Below is the script to show or hide the specific class names under the subject listings
-#replyButton.modal.fade(role='dialog')
-  .modal-dialog.modal-lg
-    .modal-content
-      .modal-header(style='background-color:rgb(228,210,87)')
-        button.close(type='button', data-dismiss='modal') ×
-      .modal-body
-        .container-fluid
-          form.form-horizontal(action='/action_page.php')
-            .row
-              .col-25
-                label(for='userName') Username
-              .col-75
-                input#replyUsername(type='text', name='username', placeholder='Username')
-            .row
-              .col-25
-                label(for='reply') Reply
-              .col-75
-                textarea#postReply(name='reply', placeholder='Write something..', style='height:200px')
-            .row
-              .col-75
-                input(type='submit', value='Submit', style='background-color:rgb(228, 210, 87); color: black;')
-      .modal-footer(style='background-color:rgb(228,210,87);')
-        button.btn.btn-default(type='button', data-dismiss='modal') Close
+
 script.
   document.getElementById("menu_images").onchange = function () {
   var reader = new FileReader();
@@ -309,84 +297,3 @@ script.
   };
   }
 // Below is the script to show or hide the specific class names under the subject listings
-script.
-  function viewClassForums(schoolName){
-  if(schoolName == "none"){
-  if (topics){
-  for (t in topics){
-  var insertStringTopics = "\
-  <div class='row'>\
-  <div class='col-12'>\
-  <div class='card'>\
-  <div class='card-body'>\
-  <h5 class='card-title' id='post_title'>"+item.topic_title+"</h5>\
-  <h6 class='card-subtitle mb-2 text-muted' id='post_subject'>"+item.topic_subject+"</h6>\
-  <p class='card-text' id='post_content'>"+item.topic_body+"</p>\
-  <p class='card-subtitle mb-2 text-muted small' id='post_date'>NEED DATE IMPLEMENTED</p>\
-  <button type='button' class='btn btn-light' data-toggle='modal' data-target='#replyButton' action='/forum/postReply'>REPLY</button>\
-  </div>\
-  ";
-  document.getElementByID('topicContainer').innerHTML += insertStringTopics;
-  if(replies){
-  document.getElementByID('topicContainer').innerHTML += "<ul class='list-group list-group-flush' id='post_replies'>";
-  for (r in replies){
-  if (r.reply_username == t.topic_username){
-  var insertStringReply = "\
-  <li class='list-group-item'>\
-  <p class='card-subtitle mb-2 text-muted small'><i>"+r.reply_username+" replies...</i></p>\
-  <h>"+r.reply_body+"</h>\
-  </li>\
-  ";
-  document.getElementByID('topicContainer').innerHTML += insertStringReply;
-  }
-  }
-  document.getElementByID('topicContainer').innerHTML += "</ul>";
-  }
-  document.getElementByID('topicContainer').innerHTML += "</div>\
-  </div>\
-  </div>\
-  <br>";
-  }
-  }
-  }
-  else{
-  if (topics){
-  for (t in topics){
-  if(t.topic_subject == schoolName){
-  var insertStringTopics = "\
-  <div class='row'>\
-  <div class='col-12'>\
-  <div class='card'>\
-  <div class='card-body'>\
-  <h5 class='card-title' id='post_title'>"+item.topic_title+"</h5>\
-  <h6 class='card-subtitle mb-2 text-muted' id='post_subject'>"+item.topic_subject+"</h6>\
-  <p class='card-text' id='post_content'>"+item.topic_body+"</p>\
-  <p class='card-subtitle mb-2 text-muted small' id='post_date'>NEED DATE IMPLEMENTED</p>\
-  <button type='button' class='btn btn-light' data-toggle='modal' data-target='#replyButton' action='/forum/postReply'>REPLY</button>\
-  </div>\
-  ";
-  document.getElementByID('topicContainer').innerHTML += insertStringTopics;
-  if(replies){
-  document.getElementByID('topicContainer').innerHTML += "<ul class='list-group list-group-flush' id='post_replies'>";
-  for (r in replies){
-  if (r.reply_username == t.topic_username){
-  var insertStringReply = "\
-  <li class='list-group-item'>\
-  <p class='card-subtitle mb-2 text-muted small'><i>"+r.reply_username+" replies...</i></p>\
-  <h>"+r.reply_body+"</h>\
-  </li>\
-  ";
-  document.getElementByID('topicContainer').innerHTML += insertStringReply;
-  }
-  }
-  document.getElementByID('topicContainer').innerHTML += "</ul>";
-  }
-  document.getElementByID('topicContainer').innerHTML += "</div>\
-  </div>\
-  </div>\
-  <br>";
-  }
-  }
-  }
-  }
-  }

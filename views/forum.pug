@@ -127,6 +127,7 @@ style.
   margin-top: 0;
   }
   }
+body(style="background-color:rgb(228, 210, 87);" onload="javascript:viewClassForums('none')")
 // nav bar
 nav.navbar.navbar-expand-lg.navbar-light.bg-light
   a.navbar-brand(href='homePage')
@@ -144,11 +145,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           | Forum
           span.sr-only (current)
     .form-inline.my-2.my-lg-0
-      if(loggedIn)
-        form(action='/logout' method ="get")
-          button.btn.btn-outline-dark.my-2.my-sm-0(role='button') Logout
-      else
-        button.btn.btn-outline-dark.my-2.my-sm-0(role='button', onclick="window.location.href='loginPage'") Login
+      button.btn.btn-outline-dark.my-2.my-sm-0(type='submit') Logout
 // body information
 br
 br
@@ -161,39 +158,40 @@ br
         #math.col-12
           br
           .card
-            button.btn.btn-light.btn-sm(type='button' action="viewClassForums('math_list')")
+            button.btn.btn-light.btn-sm(type='button' action="viewClassForums('Math')")
               | Math
       .row
         #physics.col-12
           .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('physics_list')")
+            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Physics')")
               | Physics
       .row
         #computer_science.col-12
           .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('computer_science_list')")
+            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Computer Science')")
               | Computer Science
       .row
         #chemistry.col-12
           .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('chemistry_list')")
+            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Chemistry')")
               | Chemistry
       .row
         #biology.col-12
           .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('biology_list')")
+            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Biology')")
               | Biology
       .row
         #english.col-12
           .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('english_list')")
+            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('English')")
               | English
   .column.rightColumn
     p.text-center(style='font-size:160%; font-family: serif')
       | Forum Posts
     p.text-center
-      #ForumContainer.container-fluid
+      .container-fluid
         .text-right
+          // BUTTON FOR ADDING A NEW DISCUSSION POST
           button.btn.btn-sm.btn-info(type='submit' data-toggle='modal' data-target='#myModal') Add a new discussion post
           #myModal.modal.fade(role='dialog')
             .modal-dialog.modal-lg
@@ -201,7 +199,7 @@ br
                 .modal-header(style='background-color:rgb(228,210,87)')
                   button.close(type='button' data-dismiss='modal') &times;
                 .modal-body
-                  form.form-horizontal(action='/action_page.php')
+                  form.form-horizontal(action='/forum/postTopic' method='post')
                     .row
                       .col-25
                         label(for='title') Title
@@ -228,25 +226,167 @@ br
                         input(type='submit' value='Submit' style='background-color:rgb(228, 210, 87); color: black;')
                 .modal-footer(style='background-color:rgb(228,210,87);')
                   button.btn.btn-default(type='button' data-dismiss='modal') Close
+        // END OF BUTTON FOR ADDING A NEW DISCUSSION POST
         br
-        script.
-          function viewClassForums(schoolName){
-          /* TEMPLATE
-          <div class="row">
-          <div class="col-12">
-          <div class="card">
-          <label id="reply_title">
-          Title
-          </label>
-          <button type="button" class="btn btn-light">
-          <p> Post content </p>
-          </button>
-          </div>
-          </div>
-          </div>
-          <br>
-          */
-          //todo: make a function that only accepts subjects clicked by the button
-          if ()
-          }
-br
+        if topics
+          for item in topics
+            .row
+              .col-12
+                .card
+                  .card-body
+                    h5#post_title.card-title
+                      | #{item.topic_title}
+                    h6#post_subject.card-subtitle.mb-2.text-muted
+                      | #{item.topic_subject}
+                    p#post_content.card-text
+                      | #{item.topic_body}
+                    p#post_date.card-subtitle.mb-2.text-muted.small
+                      | 11/11/2019
+                    button.btn.btn-light(type='button' data-toggle='modal' data-target='#replyButton') REPLY
+            if replies
+              for item2 in replies
+                if item2.reply_topic_id == item.topic_id
+                  ul.list-group.list-group-flush
+                    li.list-group-item
+                      p.card-subtitle.mb-2.text-muted.small
+                        i #{item2.reply_username} replies...
+                      h #{item2.reply_body}
+            br
+
+
+
+
+
+  br
+// BUTTON FOR REPLYING TO A DISCUSSION POST
+// Below is the script to show or hide the specific class names under the subject listings
+#replyButton.modal.fade(role='dialog')
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header(style='background-color:rgb(228,210,87)')
+        button.close(type='button', data-dismiss='modal') ×
+      .modal-body
+        .container-fluid
+          form.form-horizontal(action='/action_page.php')
+            .row
+              .col-25
+                label(for='userName') Username
+              .col-75
+                input#replyUsername(type='text', name='username', placeholder='Username')
+            .row
+              .col-25
+                label(for='reply') Reply
+              .col-75
+                textarea#postReply(name='reply', placeholder='Write something..', style='height:200px')
+            .row
+              .col-75
+                input(type='submit', value='Submit', style='background-color:rgb(228, 210, 87); color: black;')
+      .modal-footer(style='background-color:rgb(228,210,87);')
+        button.btn.btn-default(type='button', data-dismiss='modal') Close
+script.
+  document.getElementById("menu_images").onchange = function () {
+  var reader = new FileReader();
+  if(this.files[0].size>528385){
+  alert("Image Size should not be greater than 500Kb");
+  $("#menu_image").attr("src","blank");
+  $("#menu_image").hide();
+  $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+  $('#menu_images').unwrap();
+  return false;
+  }
+  if(this.files[0].type.indexOf("image")==-1){
+  alert("Invalid Type");
+  $("#menu_image").attr("src","blank");
+  $("#menu_image").hide();
+  $('#menu_images').wrap('<form>').closest('form').get(0).reset();
+  $('#menu_images').unwrap();
+  return false;
+  }
+  reader.onload = function (e) {
+  // get loaded data and render thumbnail.
+  document.getElementById("menu_image").src = e.target.result;
+  $("#menu_image").show();
+  };
+  }
+// Below is the script to show or hide the specific class names under the subject listings
+script.
+  function viewClassForums(schoolName){
+  if(schoolName == "none"){
+  if (topics){
+  for (t in topics){
+  var insertStringTopics = "\
+  <div class='row'>\
+  <div class='col-12'>\
+  <div class='card'>\
+  <div class='card-body'>\
+  <h5 class='card-title' id='post_title'>"+item.topic_title+"</h5>\
+  <h6 class='card-subtitle mb-2 text-muted' id='post_subject'>"+item.topic_subject+"</h6>\
+  <p class='card-text' id='post_content'>"+item.topic_body+"</p>\
+  <p class='card-subtitle mb-2 text-muted small' id='post_date'>NEED DATE IMPLEMENTED</p>\
+  <button type='button' class='btn btn-light' data-toggle='modal' data-target='#replyButton' action='/forum/postReply'>REPLY</button>\
+  </div>\
+  ";
+  document.getElementByID('topicContainer').innerHTML += insertStringTopics;
+  if(replies){
+  document.getElementByID('topicContainer').innerHTML += "<ul class='list-group list-group-flush' id='post_replies'>";
+  for (r in replies){
+  if (r.reply_username == t.topic_username){
+  var insertStringReply = "\
+  <li class='list-group-item'>\
+  <p class='card-subtitle mb-2 text-muted small'><i>"+r.reply_username+" replies...</i></p>\
+  <h>"+r.reply_body+"</h>\
+  </li>\
+  ";
+  document.getElementByID('topicContainer').innerHTML += insertStringReply;
+  }
+  }
+  document.getElementByID('topicContainer').innerHTML += "</ul>";
+  }
+  document.getElementByID('topicContainer').innerHTML += "</div>\
+  </div>\
+  </div>\
+  <br>";
+  }
+  }
+  }
+  else{
+  if (topics){
+  for (t in topics){
+  if(t.topic_subject == schoolName){
+  var insertStringTopics = "\
+  <div class='row'>\
+  <div class='col-12'>\
+  <div class='card'>\
+  <div class='card-body'>\
+  <h5 class='card-title' id='post_title'>"+item.topic_title+"</h5>\
+  <h6 class='card-subtitle mb-2 text-muted' id='post_subject'>"+item.topic_subject+"</h6>\
+  <p class='card-text' id='post_content'>"+item.topic_body+"</p>\
+  <p class='card-subtitle mb-2 text-muted small' id='post_date'>NEED DATE IMPLEMENTED</p>\
+  <button type='button' class='btn btn-light' data-toggle='modal' data-target='#replyButton' action='/forum/postReply'>REPLY</button>\
+  </div>\
+  ";
+  document.getElementByID('topicContainer').innerHTML += insertStringTopics;
+  if(replies){
+  document.getElementByID('topicContainer').innerHTML += "<ul class='list-group list-group-flush' id='post_replies'>";
+  for (r in replies){
+  if (r.reply_username == t.topic_username){
+  var insertStringReply = "\
+  <li class='list-group-item'>\
+  <p class='card-subtitle mb-2 text-muted small'><i>"+r.reply_username+" replies...</i></p>\
+  <h>"+r.reply_body+"</h>\
+  </li>\
+  ";
+  document.getElementByID('topicContainer').innerHTML += insertStringReply;
+  }
+  }
+  document.getElementByID('topicContainer').innerHTML += "</ul>";
+  }
+  document.getElementByID('topicContainer').innerHTML += "</div>\
+  </div>\
+  </div>\
+  <br>";
+  }
+  }
+  }
+  }
+  }

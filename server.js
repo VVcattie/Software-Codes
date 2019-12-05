@@ -308,10 +308,32 @@ app.post('/forum/postTopic', function(req,res){
     })
     .catch(error => {
         // display error message in case an error
-            console.log(error); //if this doesn't work for you replace with console.log
+            console.log('error'); //if this doesn't work for you replace with console.log
           });
     res.redirect('back');
   }
+});
+app.post('/forum/postReply', function(req,res){
+  if (!req.session.user || !req.cookies.usersid){ //if user isnt logged in, they cant post a topic
+    res.redirect('/loginPage');
+  }
+  else{
+    var replyID = req.query.id;
+    var replyBody = req.body['postReply'+ replyID];
+    console.log(replyBody);
+
+    var insertStatement = "insert into replies(reply_topic_id, reply_username, reply_body) values("+replyID+",'" +req.session.user+"','"+req.body['postReply'+req.query.id]+"');";
+    console.log(insertStatement);
+    db.any(insertStatement).then(function(){
+      console.log('success added!')
+    })
+    .catch(error => {
+        // display error message in case an error
+            console.log('error'); //if this doesn't work for you replace with console.log
+          });
+    res.redirect('back');
+  }
+
 });
 
 

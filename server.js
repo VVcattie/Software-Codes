@@ -27,9 +27,9 @@ var session = require('express-session');
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textbuddy_db',  //name of database (CHANGE accordingly)
+	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'password'
+	password: 'micronp1100'
 };
 
 let db = pgp(dbConfig);
@@ -76,12 +76,12 @@ app.get('/loginPage', function(req, res) {
 
   if(logged_in) {
     res.render('homePage',{
-      my_title:"Home Page", 
+      my_title:"Home Page",
       loggedIn: logged_in
     });
   } else {
     res.render('loginPage',{
-      my_title:"Login Page", 
+      my_title:"Login Page",
       loggedIn: logged_in
     });
   }
@@ -99,7 +99,7 @@ app.get('/homePage', function(req, res){
   console.log("Logged in: " + logged_in);
 
   res.render('homePage',{
-    my_title:"Home Page", 
+    my_title:"Home Page",
     loggedIn: logged_in
   });
 });
@@ -278,7 +278,27 @@ app.get('/forum', function(req,res){
   });
 
 });
+app.post('/forum/postTopic', function(req,res){
 
+  if (!req.session.user || !req.cookies.usersid){ //if user isnt logged in, they cant post a topic
+    res.redirect('/loginPage');
+  }
+  else{
+    var title = req.body.title;
+    var subject = req.body.post_class;
+    var textBody = req.body.subject;
+    var insertStatement = "INSERT INTO topics(topic_title, topic_subject, topic_username, Topic_body) VALUES('"+ title +"','"+ subject+"','"+ req.session.user +"','"+ textBody +"') ON CONFLICT DO NOTHING;";
+    console.log(insertStatement);
+    db.any(insertStatement).then(function(){
+      console.log('success added!')
+    })
+    .catch(error => {
+        // display error message in case an error
+            console.log('error'); //if this doesn't work for you replace with console.log
+          });
+    res.redirect('back');
+  }
+});
 
 
 app.listen(3000);

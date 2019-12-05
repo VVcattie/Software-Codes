@@ -159,22 +159,21 @@ br
     | TextBook/Notes Listings
   p.text-center
     .container-fluid
-      form.form
+      form.form-horizontal(action='/listings/searchListings' method='post')
         .row
           .col-auto(style='width: 100%')
-            input.form-control(type='text' placeholder='Search' aria-label='Search')
+            input.form-control#title(type='text' name='title' placeholder='Search' aria-label='Search')
         .row
           .col-auto
             // radio buttons
             .btn-group-inline
               label
-                input#option1(type='radio' name='options' autocomplete='off')
+                input(type='radio' name='optradio' value="1" autocomplete='off')
                 | Notebook
               label
-                input#option2(type='radio' name='options' autocomplete='off')
+                input(type='radio' name='optradio' value="2" autocomplete='off')
                 | Textbook
-              select#myList.btn.btn-sm.btn-light(style='width: auto' action='/listings' method='get')
-                option(value='Select_subject') - Select Subject -
+              select#myList.btn.btn-sm.btn-light(name='myList' style='width: auto')
                 option(value='Math') Math
                 option(value='Physics') Physics
                 option(value='Computer_science') Computer Science

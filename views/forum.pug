@@ -158,33 +158,37 @@ br
         #math.col-12
           br
           .card
-            button.btn.btn-light.btn-sm(type='button' action="viewClassForums('Math')")
-              | Math
-      .row
-        #physics.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Physics')")
-              | Physics
-      .row
-        #computer_science.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Computer Science')")
-              | Computer Science
-      .row
-        #chemistry.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Chemistry')")
-              | Chemistry
-      .row
-        #biology.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Biology')")
-              | Biology
-      .row
-        #english.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('English')")
-              | English
+            .container-fluid
+              form.form(action='/action_page.php')
+                // radio buttons
+                .btn-group-vertical
+                  .radio
+                    label
+                      input(type='radio', name='optradio', checked='')
+                      |  Math
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Physics
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Computer Science
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Chemistry
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Biology
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  English
+                  div
+                    input(type='submit', value='Submit', style='background-color:rgb(228, 210, 87); color: black;')
+      
   .column.rightColumn
     p.text-center(style='font-size:160%; font-family: serif')
       | Forum Posts

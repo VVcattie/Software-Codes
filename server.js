@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'password'
 };
 
 let db = pgp(dbConfig);
@@ -308,7 +308,7 @@ app.post('/forum/postTopic', function(req,res){
     })
     .catch(error => {
         // display error message in case an error
-            console.log('error'); //if this doesn't work for you replace with console.log
+            console.log(error); //if this doesn't work for you replace with console.log
           });
     res.redirect('back');
   }

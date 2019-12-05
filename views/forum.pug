@@ -158,33 +158,37 @@ br
         #math.col-12
           br
           .card
-            button.btn.btn-light.btn-sm(type='button' action="viewClassForums('Math')")
-              | Math
-      .row
-        #physics.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Physics')")
-              | Physics
-      .row
-        #computer_science.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Computer Science')")
-              | Computer Science
-      .row
-        #chemistry.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Chemistry')")
-              | Chemistry
-      .row
-        #biology.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('Biology')")
-              | Biology
-      .row
-        #english.col-12
-          .card
-            button.btn.btn-light.btn-sm(type='button' onclick="viewClassForums('English')")
-              | English
+            .container-fluid
+              form.form(action='/action_page.php')
+                // radio buttons
+                .btn-group-vertical
+                  .radio
+                    label
+                      input(type='radio', name='optradio', checked='')
+                      |  Math
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Physics
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Computer Science
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Chemistry
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  Biology
+                  .radio
+                    label
+                      input(type='radio', name='optradio')
+                      |  English
+                  div
+                    input(type='submit', value='Submit', style='background-color:rgb(228, 210, 87); color: black;')
+      
   .column.rightColumn
     p.text-center(style='font-size:160%; font-family: serif')
       | Forum Posts
@@ -250,15 +254,12 @@ br
                             p.card-subtitle.mb-2.text-muted.small
                               i #{item2.reply_username} replies...
                             h #{item2.reply_body}
-                  .container-fluid
-                    form.form-horizontal(action="/forum/postReply?id="+item.topic_id method='post')
-                      .row
-                        .col-25
-                          label(for='reply') Reply
-                        .col-75
+                    .container-fluid
+                      form.form-horizontal(action="/forum/postReply?id="+item.topic_id method='post')
+                          b &nbsp;
+                          label(for='reply') 
+                            | Write a reply...
                           textarea(id='postReply'+item.topic_id name='postReply'+item.topic_id, placeholder='Write something..', style='height:200px')
-                      .row
-                        .col-75
                           input(type='submit', value='Reply', style='background-color:rgb(228, 210, 87); color: black;')
 
             br

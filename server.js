@@ -224,42 +224,53 @@ app.get('/listings', function(req, res){
   });
 //function to add a new textbook or notebook listing to the database
 app.post('/listings/postListing', function(req,res){
-  var title = req.body.title;
-  var category = req.body.post_class;
-  var description = req.body.subject;
-  var price = req.body.price;
-  var username = req.body.sellerName;
-  var email = req.body.sellerEmail;
-  var bookType = req.body.optradio;
-  console.log("email: " + email);
-  console.log("title: " + title);
-  console.log("category: " + category);
-  console.log("description: " + description);
-  console.log("bookType: " + bookType);
-  console.log("Price: " + price);
-  console.log("username: " + username);
-  var getUserID = "select * from users where user_email = '" + email + "';";
-  var userID;
-  db.any(getUserID)
-  .then(function(rows){
-    userID = rows[0].user_username;
-    console.log("userID: " +userID);
-  });
-      //todo fix username entry
-      var insertStatement = "INSERT INTO listings(listing_title, listing_username, listing_description, listing_subject, listing_booktype, listing_price, listing_email) VALUES('"+ title + "','" + userID + "', '" + description + "','" + category + "'," + bookType + ","+price+",'"+email+"') ON CONFLICT DO NOTHING;";
-      db.any(insertStatement)
-      .then(function(){
-        console.log('success added!')
-      })
-      .catch(error => {
-          // display error message in case an error
-              console.log('error'); //if this doesn't work for you replace with console.log
-            });
-      res.redirect('back');
+  if (!req.session.user || !req.cookies.usersid){ //if user isnt logged in, they cant post a topic
+    res.redirect('/loginPage');
+  }
+  else{
+    var title = req.body.title;
+    var category = req.body.post_class;
+    var description = req.body.subject;
+    var price = req.body.price;
+    var username = req.body.sellerName;
+    var email = req.body.sellerEmail;
+    var bookType = req.body.optradio;
+    console.log("email: " + email);
+    console.log("title: " + title);
+    console.log("category: " + category);
+    console.log("description: " + description);
+    console.log("bookType: " + bookType);
+    console.log("Price: " + price);
+    console.log("username: " + username);
+    var getUserID = "select * from users where user_email = '" + email + "';";
+    var userID;
+    db.any(getUserID)
+    .then(function(rows){
+      userID = rows[0].user_username;
+      console.log("userID: " +userID);
     });
+        //todo fix username entry
+        var insertStatement = "INSERT INTO listings(listing_title, listing_username, listing_description, listing_subject, listing_booktype, listing_price, listing_email) VALUES('"+ title + "','" + userID + "', '" + description + "','" + category + "'," + bookType + ","+price+",'"+email+"') ON CONFLICT DO NOTHING;";
+        db.any(insertStatement)
+        .then(function(){
+          console.log('success added!')
+        })
+        .catch(error => {
+            // display error message in case an error
+                console.log('error'); //if this doesn't work for you replace with console.log
+              });
+        res.redirect('back');
+    }
+});
 
 app.get('/forum', function(req,res){
-  var callPosts = 'select * from topics;';
+  var listSelection = req.body.listSubject;
+  if (listSelection){
+    var callPosts = 'select * from topics where topic_subject = '+ listSelection;
+  }
+  else{
+    var callPosts = 'select * from topics;';
+  }
   var callReplies = 'select * from replies;';
   db.task('get-everything', task => {
     return task.batch([

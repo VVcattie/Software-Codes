@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'divy123'
+	password: 'password'
 };
 
 let db = pgp(dbConfig);
@@ -220,6 +220,11 @@ app.get('/listings', function(req, res){
     })
     .catch(function(err){
      console.log('listings retreiveal failed...');
+     	res.render('listings',{
+        my_title: "Listings",
+        test: "",
+        listingUsername: ""
+      })
    });
   });
 //function to add a new textbook or notebook listing to the database
@@ -367,7 +372,7 @@ app.post('/forum/postReply', function(req,res){
     })
     .catch(error => {
         // display error message in case an error
-            console.log('error'); //if this doesn't work for you replace with console.log
+            console.log(error); //if this doesn't work for you replace with console.log
           });
     res.redirect('back');
   }

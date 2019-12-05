@@ -144,7 +144,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           | Forum
           span.sr-only (current)
     .form-inline.my-2.my-lg-0
-      button.btn.btn-outline-dark.my-2.my-sm-0(role='button' onclick="window.location.href='loginPage'") Login
+      if(loggedIn)
+        form(action='/logout' method ="get")
+          button.btn.btn-outline-dark.my-2.my-sm-0(role='button') Logout
+      else
+        button.btn.btn-outline-dark.my-2.my-sm-0(role='button', onclick="window.location.href='loginPage'") Login
 // body information
 br
 br

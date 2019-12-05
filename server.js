@@ -25,11 +25,11 @@ var session = require('express-session');
 // REMEMBER to chage the password
 
 const dbConfig = {
-	host: 'localhost',
-	port: 5432,
-	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
-	user: 'postgres',
-	password: 'micronp1100'
+  host: 'localhost',
+  port: 5432,
+  database: 'textbuddy_database',  //name of database (CHANGE accordingly)
+  user: 'postgres',
+  password: 'password'
 };
 
 let db = pgp(dbConfig);
@@ -200,6 +200,13 @@ app.post('/signUp/createAccount', function(req,res){
 //function to render the listings of textbooks from the database
 app.get('/listings', function(req, res){
     //check to see if there is a selection, then do the db calls
+    var logged_in = false;
+    if(req.cookies) {
+      if(req.session.user && req.cookies.usersid) {
+        logged_in = true;
+      }
+    }
+    console.log("Logged in: " + logged_in);
 
     var callListings = "select * from listings;";
     var listingUser = "select user_username from users right join listings on listing_email = user_email;";
@@ -213,7 +220,8 @@ app.get('/listings', function(req, res){
       res.render('listings',{
         my_title: "Listings",
         test: info[0],
-        listingUsername: info[1]
+        listingUsername: info[1],
+        loggedIn: logged_in
       })
 
       console.log('listings retreiveal success');
@@ -259,6 +267,15 @@ app.post('/listings/postListing', function(req,res){
     });
 
 app.get('/forum', function(req,res){
+  //checks if user is logged in or not and directs them to the corresponding page
+  var logged_in = false;
+  if(req.cookies) {
+    if(req.session.user && req.cookies.usersid) {
+      logged_in = true;
+    }
+  }
+  console.log("Logged in: " + logged_in);
+
   var callPosts = 'select * from topics';
   db.task('get-everything', task => {
     return task.batch([
@@ -268,7 +285,8 @@ app.get('/forum', function(req,res){
   .then(info => {
     res.render('forum',{
       my_title: "Forum",
-      data: info[0]
+      data: info[0],
+      loggedIn: logged_in
     })
 
     console.log('post retreiveal success');

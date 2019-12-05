@@ -257,7 +257,7 @@ app.post('/listings/postListing', function(req,res){
         })
         .catch(error => {
             // display error message in case an error
-                console.log('error'); //if this doesn't work for you replace with console.log
+                console.log(error); //if this doesn't work for you replace with console.log
               });
         res.redirect('back');
     }

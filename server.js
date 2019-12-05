@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'password'
+	password: 'micronp1100'
 };
 
 let db = pgp(dbConfig);

@@ -159,36 +159,36 @@ br
           br
           .card
             .container-fluid
-              form.form(action='/action_page.php')
+              form.form(action='/forum' method='get')
                 // radio buttons
                 .btn-group-vertical
                   .radio
                     label
-                      input(type='radio', name='optradio', checked='')
+                      input(type='radio', name='optradio', value='Math' autocomplete='off')
                       |  Math
                   .radio
                     label
-                      input(type='radio', name='optradio')
+                      input(type='radio', name='optradio' value='Physics' autocomplete='off')
                       |  Physics
                   .radio
                     label
-                      input(type='radio', name='optradio')
+                      input(type='radio', name='optradio' value='Computer Science' autocomplete='off')
                       |  Computer Science
                   .radio
                     label
-                      input(type='radio', name='optradio')
+                      input(type='radio', name='optradio' value='Chemistry' autocomplete='off')
                       |  Chemistry
                   .radio
                     label
-                      input(type='radio', name='optradio')
+                      input(type='radio', name='optradio' value='Biology' autocomplete='off')
                       |  Biology
                   .radio
                     label
-                      input(type='radio', name='optradio')
+                      input(type='radio', name='optradio' value='English' autocomplete='off')
                       |  English
                   div
                     input(type='submit', value='Submit', style='background-color:rgb(228, 210, 87); color: black;')
-      
+
   .column.rightColumn
     p.text-center(style='font-size:160%; font-family: serif')
       | Forum Posts
@@ -257,7 +257,7 @@ br
                     .container-fluid
                       form.form-horizontal(action="/forum/postReply?id="+item.topic_id method='post')
                           b &nbsp;
-                          label(for='reply') 
+                          label(for='reply')
                             | Write a reply...
                           textarea(id='postReply'+item.topic_id name='postReply'+item.topic_id, placeholder='Write something..', style='height:200px')
                           input(type='submit', value='Reply', style='background-color:rgb(228, 210, 87); color: black;')

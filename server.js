@@ -29,7 +29,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'micronp1100'
+	password: 'divy123'
 };
 
 let db = pgp(dbConfig);
@@ -200,9 +200,29 @@ app.post('/signUp/createAccount', function(req,res){
 //function to render the listings of textbooks from the database
 app.get('/listings', function(req, res){
     //check to see if there is a selection, then do the db calls
+    var title = req.query.inputTitle;
+    var category = req.query.myList;
+    var bookType = req.query.optradio;
+    console.log("title: " + title);
+    console.log("category: " + category);
+    console.log("bookType: " + bookType);
 
-    var callListings = "select * from listings;";
+    if(title || category || bookType){
+      if (bookType == undefined){
+        var callListings = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "');";
+        console.log("here!!!");
+      }
+      else{
+        var callListings = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
+        console.log("else???");
+      }
+    }
+    else{
+      var callListings = "select * from listings;";
+    }
+
     var listingUser = "select user_username from users right join listings on listing_email = user_email;";
+    console.log("query: " + callListings);
     db.task('get-everything', task => {
       return task.batch([
         task.any(callListings),
@@ -263,46 +283,46 @@ app.post('/listings/postListing', function(req,res){
     }
 });
 
-app.post('/listings/searchListings', function(req,res){
-  var title = req.body.title;
-  var category = req.body.myList;
-  var bookType = req.body.optradio;
-  console.log("title: " + title);
-  console.log("category: " + category);
-  console.log("bookType: " + bookType);
+// app.post('/listings/searchListings', function(req,res){
+//   var title = req.body.title;
+//   var category = req.body.myList;
+//   var bookType = req.body.optradio;
+//   console.log("title: " + title);
+//   console.log("category: " + category);
+//   console.log("bookType: " + bookType);
 
-  if (bookType == undefined){
-    var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "');";
-    console.log("here!!!");
-  }
-  else{
-    var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
-    console.log("else???");
-  }
-  //var callListings = "select * from listings;";
-  var listingUser = "select user_username from users right join listings on listing_email = user_email;";
-  console.log("query: " +queryFilter);
-  db.task('get-everything', task => {
-    return task.batch([
-      task.any(queryFilter),
-      task.any(listingUser)
-      ]);
-  })
+//   if (bookType == undefined){
+//     var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "');";
+//     console.log("here!!!");
+//   }
+//   else{
+//     var queryFilter = "SELECT * from listings WHERE (listing_title ~* '" + title + "') AND (listing_subject = '" + category + "') AND (listing_booktype = " + bookType + ");";
+//     console.log("else???");
+//   }
+//   //var callListings = "select * from listings;";
+//   var listingUser = "select user_username from users right join listings on listing_email = user_email;";
+//   console.log("query: " +queryFilter);
+//   db.task('get-everything', task => {
+//     return task.batch([
+//       task.any(queryFilter),
+//       task.any(listingUser)
+//       ]);
+//   })
 
-  .then(info => {
-    res.render('listings',{
-      my_title: "Listings",
-      test: info[0],
-      listingUsername: info[1]
-    })
+//   .then(info => {
+//     res.render('listings',{
+//       my_title: "Listings",
+//       test: info[0],
+//       listingUsername: info[1]
+//     })
 
-    console.log('listings retreiveal success');
-  })
+//     console.log('listings retreiveal success');
+//   })
 
-  .catch(function(err){
-   console.log('listings retreiveal failed...');
-  });
-});
+//   .catch(function(err){
+//    console.log('listings retreiveal failed...');
+//   });
+// });
 
 app.get('/forum', function(req,res){
   var subjectSelect = req.query.optradio;

@@ -159,10 +159,10 @@ br
     | TextBook/Notes Listings
   p.text-center
     .container-fluid
-      form.form-horizontal(action='/listings/searchListings' method='post')
+      form.form-horizontal(action='/listings' method='get')
         .row
           .col-auto(style='width: 100%')
-            input.form-control#title(type='text' name='title' placeholder='Search' aria-label='Search')
+            input.form-control#inputTitle(type='text' name='inputTitle' placeholder='Search' aria-label='Search')
         .row
           .col-auto
             // radio buttons

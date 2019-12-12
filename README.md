@@ -47,4 +47,8 @@ SoftwareCodes
   package-lock.json
   server.js
   
-  We have three folders, package-lock.json, package.json, server.js mainly. In resources folder we have css, img and js files. In views folder, we have all html and pug files.
+  
+  We have three folders, package-lock.json, package.json, server.js mainly. In the resources folder we have CSS, img, and js files. In the views folder, we have all HTML and pug files.
+  
+How to build/run/test/etc code: 
+We build the code little by little in our IDE(Atom,VS) and use Teletype while collaboration, started with writing codes from one feature to another feature. Then we run codes on Localhost, change codes together, and update GitHub timely. Also, we do test on our device too. We built test cases to outline procedures that we would use to make sure our code was working based on requirements and to improve our codes.  

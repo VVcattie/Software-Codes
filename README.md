@@ -15,3 +15,36 @@ can find what recources are accessible and up for sale.
 
 This website also provides a Forum page in which customers can post and reply to discussion posts so that they can converse
 with their classmates about difficult topics or course material.
+   
+Repo organization/structure: 
+SoftwareCodes
+  | node modules
+    - (contains node modules/ multiple folder and files)
+  | resources
+    - css
+       signUp.css
+    - img
+       TextBuddy.jpg
+       TextBuddy.png
+       TextBuddy_heading.png
+    - js
+       login_script.js
+  | views
+    - forum.html
+    - forum.pug
+    - homePage.html
+    - homePage.pug
+    - listings.html
+    - listings.pug
+    - loginPage.html
+    - loginPage.pug
+    - paymentPage.html
+    - paymentPage.pug
+    - signUp.html
+    - signUP.pug
+  .DS_Store
+  README.md
+  package-lock.json
+  server.js
+  
+  We have three folders, package-lock.json, package.json, server.js mainly. In resources folder we have css, img and js files. In views folder, we have all html and pug files.

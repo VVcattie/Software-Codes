@@ -32,7 +32,7 @@ const dbConfig = {
 	port: 5432,
 	database: 'textbuddy_db',  //name of database (CHANGE accordingly)
 	user: 'postgres',
-	password: 'password'
+	password: 'password'	//CHANGE password if necessary
 };
 
 let db = pgp(dbConfig);
@@ -210,7 +210,7 @@ app.get('/listings', function(req, res){
 		}
 	}
 
-	if(!logged_in) {
+	if(!logged_in) {	//user cannot access listings page if not logged in
 		res.render('loginPage',{
 			my_title:"Login Page",
 			loggedIn: logged_in
@@ -352,37 +352,43 @@ app.get('/forum', function(req,res){
 		}
 	}
 
-	var subjectSelect = req.query.optradio;
-	if (subjectSelect){
-		console.log("radio: "+ subjectSelect);
-		var callPosts = "select * from topics where topic_subject = '"+ subjectSelect + "';";
-	}
-	else{
-		var callPosts = 'select * from topics;';
-	}
-	var callReplies = 'select * from replies;';
+	if(!logged_in) {	//user cannot access listings page if not logged in
+		res.render('loginPage',{
+			my_title:"Login Page",
+			loggedIn: logged_in
+		});
+	} else {
+		var subjectSelect = req.query.optradio;
+		if (subjectSelect){
+			console.log("radio: "+ subjectSelect);
+			var callPosts = "select * from topics where topic_subject = '"+ subjectSelect + "';";
+		}
+		else{
+			var callPosts = 'select * from topics;';
+		}
+		var callReplies = 'select * from replies;';
 
-	db.task('get-everything', task => {
-		return task.batch([
-			task.any(callPosts),
-			task.any(callReplies)
-			]);
-	})
-	.then(info => {
-
-		res.render('forum',{
-			my_title: "Forum",
-			loggedIn: logged_in,
-			topics: info[0],
-			replies: info[1]
+		db.task('get-everything', task => {
+			return task.batch([
+				task.any(callPosts),
+				task.any(callReplies)
+				]);
 		})
+		.then(info => {
 
-		console.log('post retreiveal success');
-	})
-	.catch(function(err){
-		console.log('post retreiveal failed...');
-	});
+			res.render('forum',{
+				my_title: "Forum",
+				loggedIn: logged_in,
+				topics: info[0],
+				replies: info[1]
+			})
 
+			console.log('post retreiveal success');
+		})
+		.catch(function(err){
+			console.log('post retreiveal failed...');
+		});
+	}
 });
 app.post('/forum/postTopic', function(req,res){
 

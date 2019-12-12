@@ -15,43 +15,45 @@ function validatePassword() {
 }
 
 //the following functions check to see if an email is valid, the first performs the check, the second will display a message
+//This function is not used
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
 
-function validate() {
-  var $result = $("#result");
-  var email = $("#email").val();
-  $result.text("");
+// function validate() {
+//   var $result = $("#result");
+//   var email = $("#email").val();
+//   $result.text("");
 
-  if (validateEmail(email)) {
-    $result.text(email + " is valid :)");
-    $result.css("color", "green");
-  } else {
-    $result.text(email + " is not valid :(");
-    $result.css("color", "red");
-  }
-  return false;
-}
-$("#validate").on("click", validate);
-
-// function validatePassword() {
-// 	var password = document.getElementById("passwordInput").value;
-// 	var confirmPassword = document.getElementById("confirmPasswordInput").value;
-// 	var match = document.getElementById("match");
-
-// 	if (password != confirmPassword) {
-// 		alert("The password you enter doesn't match! Please try again");
-// 		//return false;
-// 	}
-// 	else {
-// 		match.classList.remove("invalid");
-// 		match.classList.add("valid");
-// 		return true;
-// 	}
+//   if (validateEmail(email)) {
+//     $result.text(email + " is valid :)");
+//     $result.css("color", "green");
+//   } else {
+//     $result.text(email + " is not valid :(");
+//     $result.css("color", "red");
+//   }
+//   return false;
 // }
+// $("#validate").on("click", validate);
 
+function validatePassword() {
+	var password = document.getElementById("passwordInput").value;
+	var confirmPassword = document.getElementById("confirmPasswordInput").value;
+	var match = document.getElementById("match");
+
+	if (password != confirmPassword) {
+		alert("The password you enter doesn't match! Please try again");
+		//return false;
+	}
+	else {
+		match.classList.remove("invalid");
+		match.classList.add("valid");
+		return true;
+	}
+}
+
+//This function is called when the page loads
 function loadValidationRequirements() {
 	var passwordInput = document.getElementById("passwordInput");
 	var confirmPasswordInput = document.getElementById("confirmPasswordInput");
@@ -63,13 +65,15 @@ function loadValidationRequirements() {
 	var length = document.getElementById("length");
 	var match = document.getElementById("match");
 
-  //var match = document.getElementById("match");
 
+  //when something is typed and the user releases the key
   emailInput.onkeyup = function() {
   	var isEmailProper = false;
 
+  	//regEx for checking if an email is valid or not
   	var emailCheck = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+  	//checks if email input matches regex
   	if(emailInput.value.match(emailCheck)) {
   		isEmailProper = true;
   		emailMessage.innerHTML = "Valid Email";
@@ -81,6 +85,7 @@ function loadValidationRequirements() {
   	}
   }
 
+  //checks if the password input has the correct requirements
   passwordInput.onkeyup = function() {
   	console.log('check');
 
@@ -132,6 +137,7 @@ function loadValidationRequirements() {
 		 }
 		}
 
+		//checks input password field with confirm password field
 		confirmPasswordInput.onkeyup = function(){
 			match.classList.remove("invalid");
 			match.classList.add("valid");

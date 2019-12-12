@@ -17,6 +17,10 @@ This website also provides a Forum page in which customers can post and reply to
 with their classmates about difficult topics or course material.
    
 Repo organization/structure: 
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
 SoftwareCodes
   | node modules
     - (contains node modules/ multiple folder and files)

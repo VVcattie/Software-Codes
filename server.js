@@ -2,9 +2,12 @@
 const express = require('express'); // Add the express framework has been added
 let app = express();
 
+//var path = require('path');
+
 const bodyParser = require('body-parser'); // Add the body-parser tool has been added
 app.use(bodyParser.json());              // Add support for JSON encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Add support for URL encoded bodies
+//app.use(express.static(path.join(__dirname, '/resources')))
 
 const pug = require('pug'); // Add the 'pug' view engine
 
@@ -199,6 +202,14 @@ app.post('/signUp/createAccount', function(req,res){
   });
 //function to render the listings of textbooks from the database
 app.get('/listings', function(req, res){
+    
+    var logged_in = false;
+    if(req.cookies) {
+      if(req.session.user && req.cookies.usersid) {
+        logged_in = true;
+      }
+    }
+
     //check to see if there is a selection, then do the db calls
     var title = req.query.inputTitle;
     var category = req.query.myList;
@@ -232,6 +243,7 @@ app.get('/listings', function(req, res){
     .then(info => {
       res.render('listings',{
         my_title: "Listings",
+        loggedIn: logged_in,
         test: info[0],
         listingUsername: info[1]
       })
@@ -244,6 +256,7 @@ app.get('/listings', function(req, res){
   });
 //function to add a new textbook or notebook listing to the database
 app.post('/listings/postListing', function(req,res){
+
   if (!req.session.user || !req.cookies.usersid){ //if user isnt logged in, they cant post a topic
     res.redirect('/loginPage');
   }
@@ -325,6 +338,13 @@ app.post('/listings/postListing', function(req,res){
 // });
 
 app.get('/forum', function(req,res){
+  var logged_in = false;
+  if(req.cookies) {
+    if(req.session.user && req.cookies.usersid) {
+      logged_in = true;
+    }
+  }
+
   var subjectSelect = req.query.optradio;
   if (subjectSelect){
     console.log("radio: "+ subjectSelect);
@@ -345,6 +365,7 @@ app.get('/forum', function(req,res){
 
     res.render('forum',{
       my_title: "Forum",
+      loggedIn: logged_in,
       topics: info[0],
       replies: info[1]
     })
@@ -357,6 +378,13 @@ app.get('/forum', function(req,res){
 
 });
 app.post('/forum/postTopic', function(req,res){
+
+  var logged_in = false;
+  if(req.cookies) {
+    if(req.session.user && req.cookies.usersid) {
+      logged_in = true;
+    }
+  }
 
   if (!req.session.user || !req.cookies.usersid){ //if user isnt logged in, they cant post a topic
     res.redirect('/loginPage');

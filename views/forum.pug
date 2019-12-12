@@ -11,6 +11,8 @@ head
   // Latest compiled JavaScript
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
   title Forum Page
+
+//bunch of css added to make formatting of page more aesthetic 
 style.
   * {
   box-sizing: border-box;
@@ -145,7 +147,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           | Forum
           span.sr-only (current)
     .form-inline.my-2.my-lg-0
-      button.btn.btn-outline-dark.my-2.my-sm-0(type='submit') Logout
+      if(loggedIn)
+          form(action='/logout' method ="get")
+            button.btn.btn-outline-dark.my-2.my-sm-0(role='button') Logout
+      else
+        button.btn.btn-outline-dark.my-2.my-sm-0(role='button', onclick="window.location.href='loginPage'") Login
 // body information
 br
 br

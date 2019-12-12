@@ -352,7 +352,7 @@ app.get('/forum', function(req,res){
 		}
 	}
 
-	if(!logged_in) {	//user cannot access listings page if not logged in
+	if(!logged_in) {	//user cannot access forum page if not logged in
 		res.render('loginPage',{
 			my_title:"Login Page",
 			loggedIn: logged_in

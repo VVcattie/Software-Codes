@@ -13,14 +13,13 @@ Unlike Craigslist, TextBuddy is geared specifically towards students to meet the
 TextBuddy includes a listings page where students can post listings for selling textbooks or notebooks and other students
 can find what recources are accessible and up for sale.
 
-This website also provides a Forum page in which customers can post and reply to discussion posts so that they can converse
-with their classmates about difficult topics or course material.
+This website also provides a forum page in which customers can post and reply to discussion posts, so that they can converse
+with their classmates about course material or specific topics.
    
 Repo organization/structure:
-          
-SoftwareCodes
-  - node modules
-    - (contains node modules/ multiple folder and files)
+Software-Codes
+  - node_modules
+    - (contains node modules - multiple folders and files)
   - resources
     - css
       - signUp.css
@@ -43,13 +42,14 @@ SoftwareCodes
     - paymentPage.pug
     - signUp.html
     - signUP.pug
-  - .DS_Store
   - README.md
+  - UserTestCases.pdf
   - package-lock.json
+  - package.json
   - server.js
   
   
-  We have three folders, package-lock.json, package.json, server.js mainly. In the resources folder we have CSS, img, and js files. In the views folder, we have all HTML and pug files.
+  At first glance, there are three folders, package-lock.json, package.json, and server.js for the working app. In the resources folder, there are is an individual folder for CSS, img, and js. In the views folder, we have all the HTML and pug files.
   
 How to build/run/test/etc code: 
-We build the code little by little in our IDE(Atom,VS) and use Teletype while collaboration, started with writing codes from one feature to another feature. Then we run codes on Localhost, change codes together, and update GitHub timely. Also, we do test on our device too. We built test cases to outline procedures that we would use to make sure our code was working based on requirements and to improve our codes.  
+The code was built bit by bit, from feature to feature, in Atom,VS, or Sublime. On top of that, one could collaborate with Teletype when using Atom. The code was first tested on Localhost. Then, changes to the code in a timely manner were made before pushing it to GitHub. To make sure the code runs, the code was also tested on other devices. Test cases are built to outline procedures that would be used to make sure the code was working and met the requirements, which led to further improvement of the code.  

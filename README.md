@@ -17,10 +17,12 @@ This website also provides a Forum page in which customers can post and reply to
 with their classmates about difficult topics or course material.
    
 Repo organization/structure: 
- Markup : * Bullet list
-              * Nested bullet
-                  * Sub-nested bullet etc
-          * Bullet list item 2:
+Alternatively,
+
+- Dashes work just as well
+- And if you have sub points, put two spaces before the dash or star:
+  - Like this
+  - And this
           
 SoftwareCodes
   | node modules

@@ -16,27 +16,21 @@ can find what recources are accessible and up for sale.
 This website also provides a Forum page in which customers can post and reply to discussion posts so that they can converse
 with their classmates about difficult topics or course material.
    
-Repo organization/structure: 
-Alternatively,
-
-- Dashes work just as well
-- And if you have sub points, put two spaces before the dash or star:
-  - Like this
-  - And this
+Repo organization/structure:
           
 SoftwareCodes
-  | node modules
+  - node modules
     - (contains node modules/ multiple folder and files)
-  | resources
+  - resources
     - css
-       signUp.css
+      - signUp.css
     - img
-       TextBuddy.jpg
-       TextBuddy.png
-       TextBuddy_heading.png
+      - TextBuddy.jpg
+      - TextBuddy.png
+      - TextBuddy_heading.png
     - js
-       login_script.js
-  | views
+      - login_script.js
+  - views
     - forum.html
     - forum.pug
     - homePage.html
@@ -49,10 +43,10 @@ SoftwareCodes
     - paymentPage.pug
     - signUp.html
     - signUP.pug
-  .DS_Store
-  README.md
-  package-lock.json
-  server.js
+  - .DS_Store
+  - README.md
+  - package-lock.json
+  - server.js
   
   
   We have three folders, package-lock.json, package.json, server.js mainly. In the resources folder we have CSS, img, and js files. In the views folder, we have all HTML and pug files.

@@ -30,7 +30,7 @@ var session = require('express-session');
 const dbConfig = {
 	host: 'localhost',
 	port: 5432,
-	database: 'textbuddy_db',  //name of database (CHANGE accordingly)
+	database: 'database',  //name of database (CHANGE accordingly)
 	user: 'postgres',
 	password: 'password'	//CHANGE password if necessary
 };
@@ -66,6 +66,10 @@ app.use((req, res, next) => {
 
 // below are the basic functions to render all of the pages as they are called
 //this uses the .pug pages
+app.get('/', function(req,res){
+  return res.redirect("/homePage");
+
+});
 app.get('/loginPage', function(req, res) {
 
   //checks if user is logged in or not and directs them to the corresponding page
@@ -187,6 +191,8 @@ app.post('/signUp/createAccount', function(req,res){
 				res.redirect("/loginPage");
 			})
 			.catch(function(err){
+        console.log("DB URL: " +process.env.DATABASE_URL);
+        console.log(pg);
 				console.log(err);
 			});
 		}
@@ -442,5 +448,7 @@ app.post('/forum/postReply', function(req,res){
 });
 
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 console.log('TextBuddy up and moving');
